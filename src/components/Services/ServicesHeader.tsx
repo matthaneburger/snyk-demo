@@ -1,14 +1,9 @@
 export const ServicesHeader = () => {
   return (
-    <article className='header'>
-      <h3>
-        high quality <br /> baby product
-      </h3>
-      <p>
-        We offer well priced, high quality branded baby products imported from
-        Japan, Europe and USA. All items are in limited quantity.
-      </p>
-      <p>We have the following types of products:</p>
+    <article className="header">
+      <h3>High Quality UFC Apparel</h3>
+      <p>50% OFF SELECT UFC VENUM FIGHT NIGHT STYLES</p>
+      <p>SAVE ON THE ULTIMATE PERFORMANCE APPAREL!</p>
     </article>
-  )
-}
+  );
+};

@@ -1,9 +1,9 @@
 import { productDataType, productDataTypeKey } from './productData'
 
 export const formatPrice = (number: number) => {
-  return Intl.NumberFormat('th-TH', {
+  return Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'THB',
+    currency: 'USD',
   }).format(number)
 }
 

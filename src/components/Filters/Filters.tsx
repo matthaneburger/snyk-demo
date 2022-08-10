@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { SearchFilters } from './SearchFilters'
-import { CategoryFilters } from './CategoryFilters'
-import { ForWhomFilters } from './ForWhomFilters'
-import { PriceFilters } from './PriceFilters'
-import { AgeFilters } from './AgeFilters'
-import { HeightFilters } from './HeightFilters'
-import { ClearFilters } from './ClearFilters'
-import { FiltersButton } from './FiltersButton'
+import React, { useState } from "react";
+import styled from "styled-components";
+import { SearchFilters } from "./SearchFilters";
+import { CategoryFilters } from "./CategoryFilters";
+import { ForWhomFilters } from "./ForWhomFilters";
+import { PriceFilters } from "./PriceFilters";
+import { HeightFilters } from "./HeightFilters";
+import { ClearFilters } from "./ClearFilters";
+import { FiltersButton } from "./FiltersButton";
 
 /** filters applied to the products list */
 const Filters = () => {
-  const [showFilters, setShowFilters] = useState(false)
+  const [showFilters, setShowFilters] = useState(false);
 
   return (
     <Wrapper>
@@ -20,25 +19,23 @@ const Filters = () => {
         setShowFilters={setShowFilters}
       />
 
-      <div className={showFilters ? 'show-filters content' : 'content'}>
-        <form onSubmit={e => e.preventDefault()}>
+      <div className={showFilters ? "show-filters content" : "content"}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <SearchFilters />
           <CategoryFilters />
           <ForWhomFilters />
           <PriceFilters />
-          <AgeFilters />
           <HeightFilters />
         </form>
         <ClearFilters />
       </div>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Filters
+export default Filters;
 
 const Wrapper = styled.section`
-
   .content {
     display: none;
   }
@@ -142,4 +139,4 @@ const Wrapper = styled.section`
       top: 1rem;
     }
   }
-`
+`;

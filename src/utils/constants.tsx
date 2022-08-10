@@ -1,48 +1,46 @@
-import { GiClothes } from 'react-icons/gi'
-import { MdOutlineSmartToy } from 'react-icons/md'
-import { FaBaby } from 'react-icons/fa'
+import { GiBoomerangCross } from "react-icons/gi";
 
 export const links = [
   {
     id: 1,
-    text: 'home',
-    url: '/',
+    text: "home",
+    url: "/",
   },
   {
     id: 2,
-    text: 'shipping',
-    url: '/shipping',
+    text: "shipping",
+    url: "/shipping",
   },
   {
     id: 3,
-    text: 'products',
-    url: '/products',
+    text: "products",
+    url: "/products",
   },
-]
+];
 
 export const services = [
   {
     id: 1,
-    icon: <MdOutlineSmartToy />,
-    title: 'toy',
-    text: 'toy text',
+    icon: <GiBoomerangCross />,
+    title: "Gear",
+    text: "toy text",
   },
   {
     id: 2,
-    icon: <GiClothes />,
-    title: 'clothing',
-    text: 'clothing text',
+    icon: <GiBoomerangCross />,
+    title: "clothing",
+    text: "clothing text",
   },
   {
     id: 3,
-    icon: <FaBaby />,
-    title: 'accessories',
-    text: 'accessories text',
+    icon: <GiBoomerangCross />,
+    title: "accessories",
+    text: "accessories text",
   },
-]
+];
 
 export const API_ENDPOINT =
-  'https://bqk6gkzk.api.sanity.io/v1/graphql/production/default'
+  "https://mqcyqq2c.api.sanity.io/v1/graphql/production/default";
 
 export const QUERY = `
 {
@@ -82,4 +80,4 @@ export const QUERY = `
   }
 }
 
-`
+`;
