@@ -21,6 +21,12 @@ const ShippingPage = () => {
             You will also receive a free gift from us if you spend more than
             $250 with us.
           </p>
+          <p>
+            <strong>
+              Disclaimer: The UFC logo is being used for editorial purposes to
+              showcase a demoing of a full-stack application. Nothing more.
+            </strong>
+          </p>
         </article>
       </Wrapper>
     </main>
