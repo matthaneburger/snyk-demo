@@ -24,7 +24,7 @@ const ShippingPage = () => {
           <p>
             <strong>
               Disclaimer: The UFC logo is being used for editorial purposes to
-              showcase a demoing of a full-stack application. Nothing more.
+              showcase a demoing of a full-stack application.
             </strong>
           </p>
         </article>

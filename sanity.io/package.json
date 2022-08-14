@@ -1,5 +1,5 @@
 {
-  "name": "UFF",
+  "name": "UFCStore",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -28,6 +28,6 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/1codingguy/typescript-e-commerce.git"
+    "url": "https://github.com/matthaneburger/snyk-demo.git"
   }
 }
