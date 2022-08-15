@@ -1,5 +1,3 @@
-import { Validator } from "react";
-
 export const ContactForm = () => {
   return (
     <form className="contact-form">

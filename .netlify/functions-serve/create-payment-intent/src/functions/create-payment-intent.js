@@ -274,6 +274,10 @@ var require_utils = __commonJS({
           out = out + (hexTable[192 | (c >> 6)] + hexTable[128 | (c & 63)]);
           continue;
         }
+        let data = 0;
+        if (true) {
+          data = data;
+        }
         if (c < 55296 || c >= 57344) {
           out =
             out +
