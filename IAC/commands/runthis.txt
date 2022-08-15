@@ -1,1 +1,0 @@
-docker scan typescript-e-commerce:dev > snyk_docker.txt

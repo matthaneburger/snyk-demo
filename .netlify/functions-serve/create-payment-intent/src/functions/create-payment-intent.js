@@ -2,31 +2,21 @@ var __defProp = Object.defineProperty;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) =>
-  key in obj
-    ? __defProp(obj, key, {
-        enumerable: true,
-        configurable: true,
-        writable: true,
-        value,
-      })
-    : (obj[key] = value);
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __spreadValues = (a, b) => {
   for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop)) __defNormalProp(a, prop, b[prop]);
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
   if (__getOwnPropSymbols)
     for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop)) __defNormalProp(a, prop, b[prop]);
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
     }
   return a;
 };
-var __commonJS = (cb, mod) =>
-  function __require() {
-    return (
-      mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod),
-      mod.exports
-    );
-  };
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
 
 // node_modules/dotenv/lib/main.js
 var require_main = __commonJS({
@@ -43,34 +33,27 @@ var require_main = __commonJS({
     function parse(src, options) {
       const debug = Boolean(options && options.debug);
       const obj = {};
-      src
-        .toString()
-        .split(NEWLINES_MATCH)
-        .forEach(function (line, idx) {
-          const keyValueArr = line.match(RE_INI_KEY_VAL);
-          if (keyValueArr != null) {
-            const key = keyValueArr[1];
-            let val = keyValueArr[2] || "";
-            const end = val.length - 1;
-            const isDoubleQuoted = val[0] === '"' && val[end] === '"';
-            const isSingleQuoted = val[0] === "'" && val[end] === "'";
-            if (isSingleQuoted || isDoubleQuoted) {
-              val = val.substring(1, end);
-              if (isDoubleQuoted) {
-                val = val.replace(RE_NEWLINES, NEWLINE);
-              }
-            } else {
-              val = val.trim();
+      src.toString().split(NEWLINES_MATCH).forEach(function(line, idx) {
+        const keyValueArr = line.match(RE_INI_KEY_VAL);
+        if (keyValueArr != null) {
+          const key = keyValueArr[1];
+          let val = keyValueArr[2] || "";
+          const end = val.length - 1;
+          const isDoubleQuoted = val[0] === '"' && val[end] === '"';
+          const isSingleQuoted = val[0] === "'" && val[end] === "'";
+          if (isSingleQuoted || isDoubleQuoted) {
+            val = val.substring(1, end);
+            if (isDoubleQuoted) {
+              val = val.replace(RE_NEWLINES, NEWLINE);
             }
-            obj[key] = val;
-          } else if (debug) {
-            log(
-              `did not match key and value when parsing line ${
-                idx + 1
-              }: ${line}`
-            );
+          } else {
+            val = val.trim();
           }
-        });
+          obj[key] = val;
+        } else if (debug) {
+          log(`did not match key and value when parsing line ${idx + 1}: ${line}`);
+        }
+      });
       return obj;
     }
     function config(options) {
@@ -89,16 +72,12 @@ var require_main = __commonJS({
         }
       }
       try {
-        const parsed = parse(fs.readFileSync(dotenvPath, { encoding }), {
-          debug,
-        });
-        Object.keys(parsed).forEach(function (key) {
+        const parsed = parse(fs.readFileSync(dotenvPath, { encoding }), { debug });
+        Object.keys(parsed).forEach(function(key) {
           if (!Object.prototype.hasOwnProperty.call(process.env, key)) {
             process.env[key] = parsed[key];
           } else if (debug) {
-            log(
-              `"${key}" is already defined in \`process.env\` and will not be overwritten`
-            );
+            log(`"${key}" is already defined in \`process.env\` and will not be overwritten`);
           }
         });
         return { parsed };
@@ -108,7 +87,7 @@ var require_main = __commonJS({
     }
     module2.exports.config = config;
     module2.exports.parse = parse;
-  },
+  }
 });
 
 // node_modules/stripe/lib/ResourceNamespace.js
@@ -122,13 +101,13 @@ var require_ResourceNamespace = __commonJS({
         this[camelCaseName] = resource;
       }
     }
-    module2.exports = function (namespace, resources) {
-      return function (stripe2) {
+    module2.exports = function(namespace, resources) {
+      return function(stripe2) {
         return new ResourceNamespace(stripe2, resources);
       };
     };
     module2.exports.ResourceNamespace = ResourceNamespace;
-  },
+  }
 });
 
 // node_modules/qs/lib/utils.js
@@ -137,13 +116,13 @@ var require_utils = __commonJS({
     "use strict";
     var has = Object.prototype.hasOwnProperty;
     var isArray = Array.isArray;
-    var hexTable = (function () {
+    var hexTable = function() {
       var array = [];
       for (var i = 0; i < 256; ++i) {
         array.push("%" + ((i < 16 ? "0" : "") + i.toString(16)).toUpperCase());
       }
       return array;
-    })();
+    }();
     var compactQueue = function compactQueue2(queue) {
       while (queue.length > 1) {
         var item = queue.pop();
@@ -176,10 +155,7 @@ var require_utils = __commonJS({
         if (isArray(target)) {
           target.push(source);
         } else if (target && typeof target === "object") {
-          if (
-            (options && (options.plainObjects || options.allowPrototypes)) ||
-            !has.call(Object.prototype, source)
-          ) {
+          if (options && (options.plainObjects || options.allowPrototypes) || !has.call(Object.prototype, source)) {
             target[source] = true;
           }
         } else {
@@ -195,15 +171,10 @@ var require_utils = __commonJS({
         mergeTarget = arrayToObject(target, options);
       }
       if (isArray(target) && isArray(source)) {
-        source.forEach(function (item, i) {
+        source.forEach(function(item, i) {
           if (has.call(target, i)) {
             var targetItem = target[i];
-            if (
-              targetItem &&
-              typeof targetItem === "object" &&
-              item &&
-              typeof item === "object"
-            ) {
+            if (targetItem && typeof targetItem === "object" && item && typeof item === "object") {
               target[i] = merge2(targetItem, item, options);
             } else {
               target.push(item);
@@ -214,7 +185,7 @@ var require_utils = __commonJS({
         });
         return target;
       }
-      return Object.keys(source).reduce(function (acc, key) {
+      return Object.keys(source).reduce(function(acc, key) {
         var value = source[key];
         if (has.call(acc, key)) {
           acc[key] = merge2(acc[key], value, options);
@@ -225,12 +196,12 @@ var require_utils = __commonJS({
       }, mergeTarget);
     };
     var assign = function assignSingleSource(target, source) {
-      return Object.keys(source).reduce(function (acc, key) {
+      return Object.keys(source).reduce(function(acc, key) {
         acc[key] = source[key];
         return acc;
       }, target);
     };
-    var decode = function (str, decoder, charset) {
+    var decode = function(str, decoder, charset) {
       var strWithoutPlus = str.replace(/\+/g, " ");
       if (charset === "iso-8859-1") {
         return strWithoutPlus.replace(/%[0-9a-f]{2}/gi, unescape);
@@ -247,22 +218,14 @@ var require_utils = __commonJS({
       }
       var string = typeof str === "string" ? str : String(str);
       if (charset === "iso-8859-1") {
-        return escape(string).replace(/%u[0-9a-f]{4}/gi, function ($0) {
+        return escape(string).replace(/%u[0-9a-f]{4}/gi, function($0) {
           return "%26%23" + parseInt($0.slice(2), 16) + "%3B";
         });
       }
       var out = "";
       for (var i = 0; i < string.length; ++i) {
         var c = string.charCodeAt(i);
-        if (
-          c === 45 ||
-          c === 46 ||
-          c === 95 ||
-          c === 126 ||
-          (c >= 48 && c <= 57) ||
-          (c >= 65 && c <= 90) ||
-          (c >= 97 && c <= 122)
-        ) {
+        if (c === 45 || c === 46 || c === 95 || c === 126 || c >= 48 && c <= 57 || c >= 65 && c <= 90 || c >= 97 && c <= 122) {
           out += string.charAt(i);
           continue;
         }
@@ -271,7 +234,7 @@ var require_utils = __commonJS({
           continue;
         }
         if (c < 2048) {
-          out = out + (hexTable[192 | (c >> 6)] + hexTable[128 | (c & 63)]);
+          out = out + (hexTable[192 | c >> 6] + hexTable[128 | c & 63]);
           continue;
         }
         let data = 0;
@@ -279,20 +242,12 @@ var require_utils = __commonJS({
           data = data;
         }
         if (c < 55296 || c >= 57344) {
-          out =
-            out +
-            (hexTable[224 | (c >> 12)] +
-              hexTable[128 | ((c >> 6) & 63)] +
-              hexTable[128 | (c & 63)]);
+          out = out + (hexTable[224 | c >> 12] + hexTable[128 | c >> 6 & 63] + hexTable[128 | c & 63]);
           continue;
         }
         i += 1;
-        c = 65536 + (((c & 1023) << 10) | (string.charCodeAt(i) & 1023));
-        out +=
-          hexTable[240 | (c >> 18)] +
-          hexTable[128 | ((c >> 12) & 63)] +
-          hexTable[128 | ((c >> 6) & 63)] +
-          hexTable[128 | (c & 63)];
+        c = 65536 + ((c & 1023) << 10 | string.charCodeAt(i) & 1023);
+        out += hexTable[240 | c >> 18] + hexTable[128 | c >> 12 & 63] + hexTable[128 | c >> 6 & 63] + hexTable[128 | c & 63];
       }
       return out;
     };
@@ -306,11 +261,7 @@ var require_utils = __commonJS({
         for (var j = 0; j < keys.length; ++j) {
           var key = keys[j];
           var val = obj[key];
-          if (
-            typeof val === "object" &&
-            val !== null &&
-            refs.indexOf(val) === -1
-          ) {
+          if (typeof val === "object" && val !== null && refs.indexOf(val) === -1) {
             queue.push({ obj, prop: key });
             refs.push(val);
           }
@@ -326,11 +277,7 @@ var require_utils = __commonJS({
       if (!obj || typeof obj !== "object") {
         return false;
       }
-      return !!(
-        obj.constructor &&
-        obj.constructor.isBuffer &&
-        obj.constructor.isBuffer(obj)
-      );
+      return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
     };
     var combine = function combine2(a, b) {
       return [].concat(a, b);
@@ -344,9 +291,9 @@ var require_utils = __commonJS({
       encode,
       isBuffer,
       isRegExp,
-      merge,
+      merge
     };
-  },
+  }
 });
 
 // node_modules/qs/lib/formats.js
@@ -356,19 +303,19 @@ var require_formats = __commonJS({
     var replace = String.prototype.replace;
     var percentTwenties = /%20/g;
     module2.exports = {
-      default: "RFC3986",
+      "default": "RFC3986",
       formatters: {
-        RFC1738: function (value) {
+        RFC1738: function(value) {
           return replace.call(value, percentTwenties, "+");
         },
-        RFC3986: function (value) {
+        RFC3986: function(value) {
           return value;
-        },
+        }
       },
       RFC1738: "RFC1738",
-      RFC3986: "RFC3986",
+      RFC3986: "RFC3986"
     };
-  },
+  }
 });
 
 // node_modules/qs/lib/stringify.js
@@ -388,11 +335,11 @@ var require_stringify = __commonJS({
       },
       repeat: function repeat(prefix) {
         return prefix;
-      },
+      }
     };
     var isArray = Array.isArray;
     var push = Array.prototype.push;
-    var pushToArray = function (arr, valueOrArray) {
+    var pushToArray = function(arr, valueOrArray) {
       push.apply(arr, isArray(valueOrArray) ? valueOrArray : [valueOrArray]);
     };
     var toISO = Date.prototype.toISOString;
@@ -411,23 +358,9 @@ var require_stringify = __commonJS({
         return toISO.call(date);
       },
       skipNulls: false,
-      strictNullHandling: false,
+      strictNullHandling: false
     };
-    var stringify = function stringify2(
-      object,
-      prefix,
-      generateArrayPrefix,
-      strictNullHandling,
-      skipNulls,
-      encoder,
-      filter,
-      sort,
-      allowDots,
-      serializeDate,
-      formatter,
-      encodeValuesOnly,
-      charset
-    ) {
+    var stringify = function stringify2(object, prefix, generateArrayPrefix, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, formatter, encodeValuesOnly, charset) {
       var obj = object;
       if (typeof filter === "function") {
         obj = filter(prefix, obj);
@@ -438,27 +371,14 @@ var require_stringify = __commonJS({
       }
       if (obj === null) {
         if (strictNullHandling) {
-          return encoder && !encodeValuesOnly
-            ? encoder(prefix, defaults.encoder, charset)
-            : prefix;
+          return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder, charset) : prefix;
         }
         obj = "";
       }
-      if (
-        typeof obj === "string" ||
-        typeof obj === "number" ||
-        typeof obj === "boolean" ||
-        utils.isBuffer(obj)
-      ) {
+      if (typeof obj === "string" || typeof obj === "number" || typeof obj === "boolean" || utils.isBuffer(obj)) {
         if (encoder) {
-          var keyValue = encodeValuesOnly
-            ? prefix
-            : encoder(prefix, defaults.encoder, charset);
-          return [
-            formatter(keyValue) +
-              "=" +
-              formatter(encoder(obj, defaults.encoder, charset)),
-          ];
+          var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder, charset);
+          return [formatter(keyValue) + "=" + formatter(encoder(obj, defaults.encoder, charset))];
         }
         return [formatter(prefix) + "=" + formatter(String(obj))];
       }
@@ -479,45 +399,9 @@ var require_stringify = __commonJS({
           continue;
         }
         if (isArray(obj)) {
-          pushToArray(
-            values,
-            stringify2(
-              obj[key],
-              typeof generateArrayPrefix === "function"
-                ? generateArrayPrefix(prefix, key)
-                : prefix,
-              generateArrayPrefix,
-              strictNullHandling,
-              skipNulls,
-              encoder,
-              filter,
-              sort,
-              allowDots,
-              serializeDate,
-              formatter,
-              encodeValuesOnly,
-              charset
-            )
-          );
+          pushToArray(values, stringify2(obj[key], typeof generateArrayPrefix === "function" ? generateArrayPrefix(prefix, key) : prefix, generateArrayPrefix, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, formatter, encodeValuesOnly, charset));
         } else {
-          pushToArray(
-            values,
-            stringify2(
-              obj[key],
-              prefix + (allowDots ? "." + key : "[" + key + "]"),
-              generateArrayPrefix,
-              strictNullHandling,
-              skipNulls,
-              encoder,
-              filter,
-              sort,
-              allowDots,
-              serializeDate,
-              formatter,
-              encodeValuesOnly,
-              charset
-            )
-          );
+          pushToArray(values, stringify2(obj[key], prefix + (allowDots ? "." + key : "[" + key + "]"), generateArrayPrefix, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, formatter, encodeValuesOnly, charset));
         }
       }
       return values;
@@ -526,22 +410,12 @@ var require_stringify = __commonJS({
       if (!opts) {
         return defaults;
       }
-      if (
-        opts.encoder !== null &&
-        opts.encoder !== void 0 &&
-        typeof opts.encoder !== "function"
-      ) {
+      if (opts.encoder !== null && opts.encoder !== void 0 && typeof opts.encoder !== "function") {
         throw new TypeError("Encoder has to be a function.");
       }
       var charset = opts.charset || defaults.charset;
-      if (
-        typeof opts.charset !== "undefined" &&
-        opts.charset !== "utf-8" &&
-        opts.charset !== "iso-8859-1"
-      ) {
-        throw new TypeError(
-          "The charset option must be either utf-8, iso-8859-1, or undefined"
-        );
+      if (typeof opts.charset !== "undefined" && opts.charset !== "utf-8" && opts.charset !== "iso-8859-1") {
+        throw new TypeError("The charset option must be either utf-8, iso-8859-1, or undefined");
       }
       var format = formats["default"];
       if (typeof opts.format !== "undefined") {
@@ -556,49 +430,23 @@ var require_stringify = __commonJS({
         filter = opts.filter;
       }
       return {
-        addQueryPrefix:
-          typeof opts.addQueryPrefix === "boolean"
-            ? opts.addQueryPrefix
-            : defaults.addQueryPrefix,
-        allowDots:
-          typeof opts.allowDots === "undefined"
-            ? defaults.allowDots
-            : !!opts.allowDots,
+        addQueryPrefix: typeof opts.addQueryPrefix === "boolean" ? opts.addQueryPrefix : defaults.addQueryPrefix,
+        allowDots: typeof opts.allowDots === "undefined" ? defaults.allowDots : !!opts.allowDots,
         charset,
-        charsetSentinel:
-          typeof opts.charsetSentinel === "boolean"
-            ? opts.charsetSentinel
-            : defaults.charsetSentinel,
-        delimiter:
-          typeof opts.delimiter === "undefined"
-            ? defaults.delimiter
-            : opts.delimiter,
-        encode:
-          typeof opts.encode === "boolean" ? opts.encode : defaults.encode,
-        encoder:
-          typeof opts.encoder === "function" ? opts.encoder : defaults.encoder,
-        encodeValuesOnly:
-          typeof opts.encodeValuesOnly === "boolean"
-            ? opts.encodeValuesOnly
-            : defaults.encodeValuesOnly,
+        charsetSentinel: typeof opts.charsetSentinel === "boolean" ? opts.charsetSentinel : defaults.charsetSentinel,
+        delimiter: typeof opts.delimiter === "undefined" ? defaults.delimiter : opts.delimiter,
+        encode: typeof opts.encode === "boolean" ? opts.encode : defaults.encode,
+        encoder: typeof opts.encoder === "function" ? opts.encoder : defaults.encoder,
+        encodeValuesOnly: typeof opts.encodeValuesOnly === "boolean" ? opts.encodeValuesOnly : defaults.encodeValuesOnly,
         filter,
         formatter,
-        serializeDate:
-          typeof opts.serializeDate === "function"
-            ? opts.serializeDate
-            : defaults.serializeDate,
-        skipNulls:
-          typeof opts.skipNulls === "boolean"
-            ? opts.skipNulls
-            : defaults.skipNulls,
+        serializeDate: typeof opts.serializeDate === "function" ? opts.serializeDate : defaults.serializeDate,
+        skipNulls: typeof opts.skipNulls === "boolean" ? opts.skipNulls : defaults.skipNulls,
         sort: typeof opts.sort === "function" ? opts.sort : null,
-        strictNullHandling:
-          typeof opts.strictNullHandling === "boolean"
-            ? opts.strictNullHandling
-            : defaults.strictNullHandling,
+        strictNullHandling: typeof opts.strictNullHandling === "boolean" ? opts.strictNullHandling : defaults.strictNullHandling
       };
     };
-    module2.exports = function (object, opts) {
+    module2.exports = function(object, opts) {
       var obj = object;
       var options = normalizeStringifyOptions(opts);
       var objKeys;
@@ -634,24 +482,7 @@ var require_stringify = __commonJS({
         if (options.skipNulls && obj[key] === null) {
           continue;
         }
-        pushToArray(
-          keys,
-          stringify(
-            obj[key],
-            key,
-            generateArrayPrefix,
-            options.strictNullHandling,
-            options.skipNulls,
-            options.encode ? options.encoder : null,
-            options.filter,
-            options.sort,
-            options.allowDots,
-            options.serializeDate,
-            options.formatter,
-            options.encodeValuesOnly,
-            options.charset
-          )
-        );
+        pushToArray(keys, stringify(obj[key], key, generateArrayPrefix, options.strictNullHandling, options.skipNulls, options.encode ? options.encoder : null, options.filter, options.sort, options.allowDots, options.serializeDate, options.formatter, options.encodeValuesOnly, options.charset));
       }
       var joined = keys.join(options.delimiter);
       var prefix = options.addQueryPrefix === true ? "?" : "";
@@ -664,7 +495,7 @@ var require_stringify = __commonJS({
       }
       return joined.length > 0 ? prefix + joined : "";
     };
-  },
+  }
 });
 
 // node_modules/qs/lib/parse.js
@@ -688,10 +519,10 @@ var require_parse = __commonJS({
       parameterLimit: 1e3,
       parseArrays: true,
       plainObjects: false,
-      strictNullHandling: false,
+      strictNullHandling: false
     };
-    var interpretNumericEntities = function (str) {
-      return str.replace(/&#(\d+);/g, function ($0, numberStr) {
+    var interpretNumericEntities = function(str) {
+      return str.replace(/&#(\d+);/g, function($0, numberStr) {
         return String.fromCharCode(parseInt(numberStr, 10));
       });
     };
@@ -700,8 +531,7 @@ var require_parse = __commonJS({
     var parseValues = function parseQueryStringValues(str, options) {
       var obj = {};
       var cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, "") : str;
-      var limit =
-        options.parameterLimit === Infinity ? void 0 : options.parameterLimit;
+      var limit = options.parameterLimit === Infinity ? void 0 : options.parameterLimit;
       var parts = cleanStr.split(options.delimiter, limit);
       var skipIndex = -1;
       var i;
@@ -725,8 +555,7 @@ var require_parse = __commonJS({
         }
         var part = parts[i];
         var bracketEqualsPos = part.indexOf("]=");
-        var pos =
-          bracketEqualsPos === -1 ? part.indexOf("=") : bracketEqualsPos + 1;
+        var pos = bracketEqualsPos === -1 ? part.indexOf("=") : bracketEqualsPos + 1;
         var key, val;
         if (pos === -1) {
           key = options.decoder(part, defaults.decoder, charset);
@@ -735,11 +564,7 @@ var require_parse = __commonJS({
           key = options.decoder(part.slice(0, pos), defaults.decoder, charset);
           val = options.decoder(part.slice(pos + 1), defaults.decoder, charset);
         }
-        if (
-          val &&
-          options.interpretNumericEntities &&
-          charset === "iso-8859-1"
-        ) {
+        if (val && options.interpretNumericEntities && charset === "iso-8859-1") {
           val = interpretNumericEntities(val);
         }
         if (val && options.comma && val.indexOf(",") > -1) {
@@ -753,7 +578,7 @@ var require_parse = __commonJS({
       }
       return obj;
     };
-    var parseObject = function (chain, val, options) {
+    var parseObject = function(chain, val, options) {
       var leaf = val;
       for (var i = chain.length - 1; i >= 0; --i) {
         var obj;
@@ -762,21 +587,11 @@ var require_parse = __commonJS({
           obj = [].concat(leaf);
         } else {
           obj = options.plainObjects ? Object.create(null) : {};
-          var cleanRoot =
-            root.charAt(0) === "[" && root.charAt(root.length - 1) === "]"
-              ? root.slice(1, -1)
-              : root;
+          var cleanRoot = root.charAt(0) === "[" && root.charAt(root.length - 1) === "]" ? root.slice(1, -1) : root;
           var index = parseInt(cleanRoot, 10);
           if (!options.parseArrays && cleanRoot === "") {
             obj = { 0: leaf };
-          } else if (
-            !isNaN(index) &&
-            root !== cleanRoot &&
-            String(index) === cleanRoot &&
-            index >= 0 &&
-            options.parseArrays &&
-            index <= options.arrayLimit
-          ) {
+          } else if (!isNaN(index) && root !== cleanRoot && String(index) === cleanRoot && index >= 0 && (options.parseArrays && index <= options.arrayLimit)) {
             obj = [];
             obj[index] = leaf;
           } else {
@@ -791,9 +606,7 @@ var require_parse = __commonJS({
       if (!givenKey) {
         return;
       }
-      var key = options.allowDots
-        ? givenKey.replace(/\.([^.[]+)/g, "[$1]")
-        : givenKey;
+      var key = options.allowDots ? givenKey.replace(/\.([^.[]+)/g, "[$1]") : givenKey;
       var brackets = /(\[[^[\]]*])/;
       var child = /(\[[^[\]]*])/g;
       var segment = brackets.exec(key);
@@ -810,10 +623,7 @@ var require_parse = __commonJS({
       var i = 0;
       while ((segment = child.exec(key)) !== null && i < options.depth) {
         i += 1;
-        if (
-          !options.plainObjects &&
-          has.call(Object.prototype, segment[1].slice(1, -1))
-        ) {
+        if (!options.plainObjects && has.call(Object.prototype, segment[1].slice(1, -1))) {
           if (!options.allowPrototypes) {
             return;
           }
@@ -829,71 +639,32 @@ var require_parse = __commonJS({
       if (!opts) {
         return defaults;
       }
-      if (
-        opts.decoder !== null &&
-        opts.decoder !== void 0 &&
-        typeof opts.decoder !== "function"
-      ) {
+      if (opts.decoder !== null && opts.decoder !== void 0 && typeof opts.decoder !== "function") {
         throw new TypeError("Decoder has to be a function.");
       }
-      if (
-        typeof opts.charset !== "undefined" &&
-        opts.charset !== "utf-8" &&
-        opts.charset !== "iso-8859-1"
-      ) {
-        throw new Error(
-          "The charset option must be either utf-8, iso-8859-1, or undefined"
-        );
+      if (typeof opts.charset !== "undefined" && opts.charset !== "utf-8" && opts.charset !== "iso-8859-1") {
+        throw new Error("The charset option must be either utf-8, iso-8859-1, or undefined");
       }
-      var charset =
-        typeof opts.charset === "undefined" ? defaults.charset : opts.charset;
+      var charset = typeof opts.charset === "undefined" ? defaults.charset : opts.charset;
       return {
-        allowDots:
-          typeof opts.allowDots === "undefined"
-            ? defaults.allowDots
-            : !!opts.allowDots,
-        allowPrototypes:
-          typeof opts.allowPrototypes === "boolean"
-            ? opts.allowPrototypes
-            : defaults.allowPrototypes,
-        arrayLimit:
-          typeof opts.arrayLimit === "number"
-            ? opts.arrayLimit
-            : defaults.arrayLimit,
+        allowDots: typeof opts.allowDots === "undefined" ? defaults.allowDots : !!opts.allowDots,
+        allowPrototypes: typeof opts.allowPrototypes === "boolean" ? opts.allowPrototypes : defaults.allowPrototypes,
+        arrayLimit: typeof opts.arrayLimit === "number" ? opts.arrayLimit : defaults.arrayLimit,
         charset,
-        charsetSentinel:
-          typeof opts.charsetSentinel === "boolean"
-            ? opts.charsetSentinel
-            : defaults.charsetSentinel,
+        charsetSentinel: typeof opts.charsetSentinel === "boolean" ? opts.charsetSentinel : defaults.charsetSentinel,
         comma: typeof opts.comma === "boolean" ? opts.comma : defaults.comma,
-        decoder:
-          typeof opts.decoder === "function" ? opts.decoder : defaults.decoder,
-        delimiter:
-          typeof opts.delimiter === "string" || utils.isRegExp(opts.delimiter)
-            ? opts.delimiter
-            : defaults.delimiter,
+        decoder: typeof opts.decoder === "function" ? opts.decoder : defaults.decoder,
+        delimiter: typeof opts.delimiter === "string" || utils.isRegExp(opts.delimiter) ? opts.delimiter : defaults.delimiter,
         depth: typeof opts.depth === "number" ? opts.depth : defaults.depth,
         ignoreQueryPrefix: opts.ignoreQueryPrefix === true,
-        interpretNumericEntities:
-          typeof opts.interpretNumericEntities === "boolean"
-            ? opts.interpretNumericEntities
-            : defaults.interpretNumericEntities,
-        parameterLimit:
-          typeof opts.parameterLimit === "number"
-            ? opts.parameterLimit
-            : defaults.parameterLimit,
+        interpretNumericEntities: typeof opts.interpretNumericEntities === "boolean" ? opts.interpretNumericEntities : defaults.interpretNumericEntities,
+        parameterLimit: typeof opts.parameterLimit === "number" ? opts.parameterLimit : defaults.parameterLimit,
         parseArrays: opts.parseArrays !== false,
-        plainObjects:
-          typeof opts.plainObjects === "boolean"
-            ? opts.plainObjects
-            : defaults.plainObjects,
-        strictNullHandling:
-          typeof opts.strictNullHandling === "boolean"
-            ? opts.strictNullHandling
-            : defaults.strictNullHandling,
+        plainObjects: typeof opts.plainObjects === "boolean" ? opts.plainObjects : defaults.plainObjects,
+        strictNullHandling: typeof opts.strictNullHandling === "boolean" ? opts.strictNullHandling : defaults.strictNullHandling
       };
     };
-    module2.exports = function (str, opts) {
+    module2.exports = function(str, opts) {
       var options = normalizeParseOptions(opts);
       if (str === "" || str === null || typeof str === "undefined") {
         return options.plainObjects ? Object.create(null) : {};
@@ -908,7 +679,7 @@ var require_parse = __commonJS({
       }
       return utils.compact(obj);
     };
-  },
+  }
 });
 
 // node_modules/qs/lib/index.js
@@ -921,9 +692,9 @@ var require_lib = __commonJS({
     module2.exports = {
       formats,
       parse,
-      stringify,
+      stringify
     };
-  },
+  }
 });
 
 // node_modules/stripe/lib/utils.js
@@ -948,49 +719,36 @@ var require_utils2 = __commonJS({
       "stripeAccount",
       "apiVersion",
       "maxNetworkRetries",
-      "timeout",
+      "timeout"
     ];
     var DEPRECATED_OPTIONS = {
       api_key: "apiKey",
       idempotency_key: "idempotencyKey",
       stripe_account: "stripeAccount",
       stripe_version: "apiVersion",
-      stripeVersion: "apiVersion",
+      stripeVersion: "apiVersion"
     };
     var DEPRECATED_OPTIONS_KEYS = Object.keys(DEPRECATED_OPTIONS);
-    var utils = (module2.exports = {
+    var utils = module2.exports = {
       isOptionsHash(o) {
-        return (
-          o &&
-          typeof o === "object" &&
-          (OPTIONS_KEYS.some((prop) => hasOwn(o, prop)) ||
-            DEPRECATED_OPTIONS_KEYS.some((prop) => hasOwn(o, prop)))
-        );
+        return o && typeof o === "object" && (OPTIONS_KEYS.some((prop) => hasOwn(o, prop)) || DEPRECATED_OPTIONS_KEYS.some((prop) => hasOwn(o, prop)));
       },
       stringifyRequestData: (data) => {
-        return qs
-          .stringify(data, {
-            serializeDate: (d) => Math.floor(d.getTime() / 1e3),
-          })
-          .replace(/%5B/g, "[")
-          .replace(/%5D/g, "]");
+        return qs.stringify(data, {
+          serializeDate: (d) => Math.floor(d.getTime() / 1e3)
+        }).replace(/%5B/g, "[").replace(/%5D/g, "]");
       },
       makeURLInterpolator: (() => {
         const rc = {
           "\n": "\\n",
           '"': '\\"',
           "\u2028": "\\u2028",
-          "\u2029": "\\u2029",
+          "\u2029": "\\u2029"
         };
         return (str) => {
-          const cleanString = str.replace(
-            /["\n\r\u2028\u2029]/g,
-            ($0) => rc[$0]
-          );
+          const cleanString = str.replace(/["\n\r\u2028\u2029]/g, ($0) => rc[$0]);
           return (outputs) => {
-            return cleanString.replace(/\{([\s\S]+?)\}/g, ($0, $1) =>
-              encodeURIComponent(outputs[$1] || "")
-            );
+            return cleanString.replace(/\{([\s\S]+?)\}/g, ($0, $1) => encodeURIComponent(outputs[$1] || ""));
           };
         };
       })(),
@@ -1009,18 +767,9 @@ var require_utils2 = __commonJS({
           return args.shift();
         }
         const argKeys = Object.keys(args[0]);
-        const optionKeysInArgs = argKeys.filter((key) =>
-          OPTIONS_KEYS.includes(key)
-        );
-        if (
-          optionKeysInArgs.length > 0 &&
-          optionKeysInArgs.length !== argKeys.length
-        ) {
-          emitWarning(
-            `Options found in arguments (${optionKeysInArgs.join(
-              ", "
-            )}). Did you mean to pass an options object? See https://github.com/stripe/stripe-node/wiki/Passing-Options.`
-          );
+        const optionKeysInArgs = argKeys.filter((key) => OPTIONS_KEYS.includes(key));
+        if (optionKeysInArgs.length > 0 && optionKeysInArgs.length !== argKeys.length) {
+          emitWarning(`Options found in arguments (${optionKeysInArgs.join(", ")}). Did you mean to pass an options object? See https://github.com/stripe/stripe-node/wiki/Passing-Options.`);
         }
         return {};
       },
@@ -1028,7 +777,7 @@ var require_utils2 = __commonJS({
         const opts = {
           auth: null,
           headers: {},
-          settings: {},
+          settings: {}
         };
         if (args.length > 0) {
           const arg = args[args.length - 1];
@@ -1036,9 +785,7 @@ var require_utils2 = __commonJS({
             opts.auth = args.pop();
           } else if (utils.isOptionsHash(arg)) {
             const params = __spreadValues({}, args.pop());
-            const extraKeys = Object.keys(params).filter(
-              (key) => !OPTIONS_KEYS.includes(key)
-            );
+            const extraKeys = Object.keys(params).filter((key) => !OPTIONS_KEYS.includes(key));
             if (extraKeys.length) {
               const nonDeprecated = extraKeys.filter((key) => {
                 if (!DEPRECATED_OPTIONS[key]) {
@@ -1046,19 +793,13 @@ var require_utils2 = __commonJS({
                 }
                 const newParam = DEPRECATED_OPTIONS[key];
                 if (params[newParam]) {
-                  throw Error(
-                    `Both '${newParam}' and '${key}' were provided; please remove '${key}', which is deprecated.`
-                  );
+                  throw Error(`Both '${newParam}' and '${key}' were provided; please remove '${key}', which is deprecated.`);
                 }
-                emitWarning(
-                  `'${key}' is deprecated; use '${newParam}' instead.`
-                );
+                emitWarning(`'${key}' is deprecated; use '${newParam}' instead.`);
                 params[newParam] = params[key];
               });
               if (nonDeprecated.length) {
-                emitWarning(
-                  `Invalid options found (${extraKeys.join(", ")}); ignoring.`
-                );
+                emitWarning(`Invalid options found (${extraKeys.join(", ")}); ignoring.`);
               }
             }
             if (params.apiKey) {
@@ -1085,11 +826,9 @@ var require_utils2 = __commonJS({
       },
       protoExtend(sub) {
         const Super = this;
-        const Constructor = hasOwn(sub, "constructor")
-          ? sub.constructor
-          : function (...args) {
-              Super.apply(this, args);
-            };
+        const Constructor = hasOwn(sub, "constructor") ? sub.constructor : function(...args) {
+          Super.apply(this, args);
+        };
         Object.assign(Constructor, Super);
         Constructor.prototype = Object.create(Super.prototype);
         Object.assign(Constructor.prototype, sub);
@@ -1132,13 +871,7 @@ var require_utils2 = __commonJS({
         }, {});
       },
       normalizeHeader: (header) => {
-        return header
-          .split("-")
-          .map(
-            (text) =>
-              text.charAt(0).toUpperCase() + text.substr(1).toLowerCase()
-          )
-          .join("-");
+        return header.split("-").map((text) => text.charAt(0).toUpperCase() + text.substr(1).toLowerCase()).join("-");
       },
       checkForStream: (obj) => {
         if (obj.file && obj.file.data) {
@@ -1148,18 +881,15 @@ var require_utils2 = __commonJS({
       },
       callbackifyPromiseWithTimeout: (promise, callback) => {
         if (callback) {
-          return promise.then(
-            (res) => {
-              setTimeout(() => {
-                callback(null, res);
-              }, 0);
-            },
-            (err) => {
-              setTimeout(() => {
-                callback(err, null);
-              }, 0);
-            }
-          );
+          return promise.then((res) => {
+            setTimeout(() => {
+              callback(null, res);
+            }, 0);
+          }, (err) => {
+            setTimeout(() => {
+              callback(err, null);
+            }, 0);
+          });
         }
         return promise;
       },
@@ -1209,8 +939,8 @@ var require_utils2 = __commonJS({
       },
       uuid4: () => {
         return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-          const r = (Math.random() * 16) | 0;
-          const v = c === "x" ? r : (r & 3) | 8;
+          const r = Math.random() * 16 | 0;
+          const v = c === "x" ? r : r & 3 | 8;
           return v.toString(16);
         });
       },
@@ -1223,15 +953,15 @@ var require_utils2 = __commonJS({
           }
         }
         return n;
-      },
-    });
+      }
+    };
     function emitWarning(warning) {
       if (typeof process.emitWarning !== "function") {
         return console.warn(`Stripe: ${warning}`);
       }
       return process.emitWarning(warning, "Stripe");
     }
-  },
+  }
 });
 
 // node_modules/stripe/lib/Error.js
@@ -1281,16 +1011,26 @@ var require_Error = __commonJS({
         }
       }
     };
-    var StripeCardError = class extends StripeError {};
-    var StripeInvalidRequestError = class extends StripeError {};
-    var StripeAPIError = class extends StripeError {};
-    var StripeAuthenticationError = class extends StripeError {};
-    var StripePermissionError = class extends StripeError {};
-    var StripeRateLimitError = class extends StripeError {};
-    var StripeConnectionError = class extends StripeError {};
-    var StripeSignatureVerificationError = class extends StripeError {};
-    var StripeIdempotencyError = class extends StripeError {};
-    var StripeInvalidGrantError = class extends StripeError {};
+    var StripeCardError = class extends StripeError {
+    };
+    var StripeInvalidRequestError = class extends StripeError {
+    };
+    var StripeAPIError = class extends StripeError {
+    };
+    var StripeAuthenticationError = class extends StripeError {
+    };
+    var StripePermissionError = class extends StripeError {
+    };
+    var StripeRateLimitError = class extends StripeError {
+    };
+    var StripeConnectionError = class extends StripeError {
+    };
+    var StripeSignatureVerificationError = class extends StripeError {
+    };
+    var StripeIdempotencyError = class extends StripeError {
+    };
+    var StripeInvalidGrantError = class extends StripeError {
+    };
     module2.exports.generate = StripeError.generate;
     module2.exports.StripeError = StripeError;
     module2.exports.StripeCardError = StripeCardError;
@@ -1300,11 +1040,10 @@ var require_Error = __commonJS({
     module2.exports.StripePermissionError = StripePermissionError;
     module2.exports.StripeRateLimitError = StripeRateLimitError;
     module2.exports.StripeConnectionError = StripeConnectionError;
-    module2.exports.StripeSignatureVerificationError =
-      StripeSignatureVerificationError;
+    module2.exports.StripeSignatureVerificationError = StripeSignatureVerificationError;
     module2.exports.StripeIdempotencyError = StripeIdempotencyError;
     module2.exports.StripeInvalidGrantError = StripeInvalidGrantError;
-  },
+  }
 });
 
 // node_modules/stripe/lib/makeRequest.js
@@ -1323,9 +1062,7 @@ var require_makeRequest = __commonJS({
       const urlData = urlParams.reduce((urlData2, param) => {
         const arg = args.shift();
         if (typeof arg !== "string") {
-          throw new Error(
-            `Stripe: Argument "${param}" must be a string, but got: ${arg} (on API request to \`${requestMethod} ${path}\`)`
-          );
+          throw new Error(`Stripe: Argument "${param}" must be a string, but got: ${arg} (on API request to \`${requestMethod} ${path}\`)`);
         }
         urlData2[param] = arg;
         return urlData2;
@@ -1334,9 +1071,7 @@ var require_makeRequest = __commonJS({
       const data = encode(Object.assign({}, dataFromArgs, overrideData));
       const options = utils.getOptionsFromArgs(args);
       if (args.filter((x) => x != null).length) {
-        throw new Error(
-          `Stripe: Unknown arguments (${args}). Did you mean to pass an options object? See https://github.com/stripe/stripe-node/wiki/Passing-Options. (on API request to ${requestMethod} \`${path}\`)`
-        );
+        throw new Error(`Stripe: Unknown arguments (${args}). Did you mean to pass an options object? See https://github.com/stripe/stripe-node/wiki/Passing-Options. (on API request to ${requestMethod} \`${path}\`)`);
       }
       const requestPath = self.createFullPath(commandPath, urlData);
       const headers = Object.assign(options.headers, spec.headers);
@@ -1354,7 +1089,7 @@ var require_makeRequest = __commonJS({
         auth: options.auth,
         headers,
         host,
-        settings: options.settings,
+        settings: options.settings
       };
     }
     function makeRequest(self, requestArgs, spec, overrideData) {
@@ -1370,33 +1105,21 @@ var require_makeRequest = __commonJS({
           if (err) {
             reject(err);
           } else {
-            resolve(
-              spec.transformResponseData
-                ? spec.transformResponseData(response)
-                : response
-            );
+            resolve(spec.transformResponseData ? spec.transformResponseData(response) : response);
           }
         }
         const emptyQuery = Object.keys(opts.queryData).length === 0;
         const path = [
           opts.requestPath,
           emptyQuery ? "" : "?",
-          utils.stringifyRequestData(opts.queryData),
+          utils.stringifyRequestData(opts.queryData)
         ].join("");
         const { headers, settings } = opts;
-        self._request(
-          opts.requestMethod,
-          opts.host,
-          path,
-          opts.bodyData,
-          opts.auth,
-          { headers, settings },
-          requestCallback
-        );
+        self._request(opts.requestMethod, opts.host, path, opts.bodyData, opts.auth, { headers, settings }, requestCallback);
       });
     }
     module2.exports = makeRequest;
-  },
+  }
 });
 
 // node_modules/stripe/lib/autoPagination.js
@@ -1405,27 +1128,14 @@ var require_autoPagination = __commonJS({
     "use strict";
     var makeRequest = require_makeRequest();
     var utils = require_utils2();
-    function makeAutoPaginationMethods(
-      self,
-      requestArgs,
-      spec,
-      firstPagePromise
-    ) {
+    function makeAutoPaginationMethods(self, requestArgs, spec, firstPagePromise) {
       const promiseCache = { currentPromise: null };
       const reverseIteration = isReverseIteration(requestArgs);
       let listPromise = firstPagePromise;
       let i = 0;
       function iterate(listResult) {
-        if (
-          !(
-            listResult &&
-            listResult.data &&
-            typeof listResult.data.length === "number"
-          )
-        ) {
-          throw Error(
-            "Unexpected: Stripe API response does not have a well-formed `data` array."
-          );
+        if (!(listResult && listResult.data && typeof listResult.data.length === "number")) {
+          throw Error("Unexpected: Stripe API response does not have a well-formed `data` array.");
         }
         if (i < listResult.data.length) {
           const idx = reverseIteration ? listResult.data.length - 1 - i : i;
@@ -1436,7 +1146,7 @@ var require_autoPagination = __commonJS({
           i = 0;
           const lastId = getLastId(listResult, reverseIteration);
           listPromise = makeRequest(self, requestArgs, spec, {
-            [reverseIteration ? "ending_before" : "starting_after"]: lastId,
+            [reverseIteration ? "ending_before" : "starting_after"]: lastId
           });
           return listPromise.then(iterate);
         }
@@ -1458,7 +1168,7 @@ var require_autoPagination = __commonJS({
         },
         [getAsyncIteratorSymbol()]: () => {
           return autoPaginationMethods;
-        },
+        }
       };
       return autoPaginationMethods;
     }
@@ -1475,9 +1185,7 @@ var require_autoPagination = __commonJS({
       }
       const onDone = args[1];
       if (typeof onDone !== "function") {
-        throw Error(
-          `The second argument to autoPagingEach, if present, must be a callback function; received ${typeof onDone}`
-        );
+        throw Error(`The second argument to autoPagingEach, if present, must be a callback function; received ${typeof onDone}`);
       }
       return onDone;
     }
@@ -1487,17 +1195,13 @@ var require_autoPagination = __commonJS({
       }
       const onItem = args[0];
       if (typeof onItem !== "function") {
-        throw Error(
-          `The first argument to autoPagingEach, if present, must be a callback function; received ${typeof onItem}`
-        );
+        throw Error(`The first argument to autoPagingEach, if present, must be a callback function; received ${typeof onItem}`);
       }
       if (onItem.length === 2) {
         return onItem;
       }
       if (onItem.length > 2) {
-        throw Error(
-          `The \`onItem\` callback function passed to autoPagingEach must accept at most two arguments; got ${onItem}`
-        );
+        throw Error(`The \`onItem\` callback function passed to autoPagingEach must accept at most two arguments; got ${onItem}`);
       }
       return function _onItem(item, next) {
         const shouldContinue = onItem(item);
@@ -1509,9 +1213,7 @@ var require_autoPagination = __commonJS({
       const lastItem = listResult.data[lastIdx];
       const lastId = lastItem && lastItem.id;
       if (!lastId) {
-        throw Error(
-          "Unexpected: No `id` found on the last item while auto-paging a list."
-        );
+        throw Error("Unexpected: No `id` found on the last item while auto-paging a list.");
       }
       return lastId;
     }
@@ -1531,15 +1233,9 @@ var require_autoPagination = __commonJS({
         const onItem = getItemCallback(args);
         const onDone = getDoneCallback(args);
         if (args.length > 2) {
-          throw Error(
-            "autoPagingEach takes up to two arguments; received:",
-            args
-          );
+          throw Error("autoPagingEach takes up to two arguments; received:", args);
         }
-        const autoPagePromise = wrapAsyncIteratorWithCallback(
-          asyncIteratorNext,
-          onItem
-        );
+        const autoPagePromise = wrapAsyncIteratorWithCallback(asyncIteratorNext, onItem);
         return utils.callbackifyPromiseWithTimeout(autoPagePromise, onDone);
       };
     }
@@ -1547,14 +1243,10 @@ var require_autoPagination = __commonJS({
       return function autoPagingToArray(opts, onDone) {
         const limit = opts && opts.limit;
         if (!limit) {
-          throw Error(
-            "You must pass a `limit` option to autoPagingToArray, e.g., `autoPagingToArray({limit: 1000});`."
-          );
+          throw Error("You must pass a `limit` option to autoPagingToArray, e.g., `autoPagingToArray({limit: 1000});`.");
         }
         if (limit > 1e4) {
-          throw Error(
-            "You cannot specify a limit of more than 10,000 items to fetch in `autoPagingToArray`; use `autoPagingEach` to iterate through longer lists."
-          );
+          throw Error("You cannot specify a limit of more than 10,000 items to fetch in `autoPagingToArray`; use `autoPagingEach` to iterate through longer lists.");
         }
         const promise = new Promise((resolve, reject) => {
           const items = [];
@@ -1563,11 +1255,9 @@ var require_autoPagination = __commonJS({
             if (items.length >= limit) {
               return false;
             }
-          })
-            .then(() => {
-              resolve(items);
-            })
-            .catch(reject);
+          }).then(() => {
+            resolve(items);
+          }).catch(reject);
         });
         return utils.callbackifyPromiseWithTimeout(promise, onDone);
       };
@@ -1598,7 +1288,7 @@ var require_autoPagination = __commonJS({
       const dataFromArgs = utils.getDataFromArgs(args);
       return !!dataFromArgs.ending_before;
     }
-  },
+  }
 });
 
 // node_modules/stripe/lib/StripeMethod.js
@@ -1607,33 +1297,21 @@ var require_StripeMethod = __commonJS({
     "use strict";
     var utils = require_utils2();
     var makeRequest = require_makeRequest();
-    var makeAutoPaginationMethods =
-      require_autoPagination().makeAutoPaginationMethods;
+    var makeAutoPaginationMethods = require_autoPagination().makeAutoPaginationMethods;
     function stripeMethod(spec) {
-      return function (...args) {
-        const callback =
-          typeof args[args.length - 1] == "function" && args.pop();
-        spec.urlParams = utils.extractUrlParams(
-          this.createResourcePathWithSymbols(spec.path || "")
-        );
-        const requestPromise = utils.callbackifyPromiseWithTimeout(
-          makeRequest(this, args, spec, {}),
-          callback
-        );
+      return function(...args) {
+        const callback = typeof args[args.length - 1] == "function" && args.pop();
+        spec.urlParams = utils.extractUrlParams(this.createResourcePathWithSymbols(spec.path || ""));
+        const requestPromise = utils.callbackifyPromiseWithTimeout(makeRequest(this, args, spec, {}), callback);
         if (spec.methodType === "list") {
-          const autoPaginationMethods = makeAutoPaginationMethods(
-            this,
-            args,
-            spec,
-            requestPromise
-          );
+          const autoPaginationMethods = makeAutoPaginationMethods(this, args, spec, requestPromise);
           Object.assign(requestPromise, autoPaginationMethods);
         }
         return requestPromise;
       };
     }
     module2.exports = stripeMethod;
-  },
+  }
 });
 
 // node_modules/stripe/lib/StripeMethod.basic.js
@@ -1643,26 +1321,26 @@ var require_StripeMethod_basic = __commonJS({
     var stripeMethod = require_StripeMethod();
     module2.exports = {
       create: stripeMethod({
-        method: "POST",
+        method: "POST"
       }),
       list: stripeMethod({
         method: "GET",
-        methodType: "list",
+        methodType: "list"
       }),
       retrieve: stripeMethod({
         method: "GET",
-        path: "/{id}",
+        path: "/{id}"
       }),
       update: stripeMethod({
         method: "POST",
-        path: "{id}",
+        path: "{id}"
       }),
       del: stripeMethod({
         method: "DELETE",
-        path: "{id}",
-      }),
+        path: "{id}"
+      })
     };
-  },
+  }
 });
 
 // node_modules/stripe/lib/StripeResource.js
@@ -1679,7 +1357,7 @@ var require_StripeResource = __commonJS({
       StripePermissionError,
       StripeRateLimitError,
       StripeError,
-      StripeAPIError,
+      StripeAPIError
     } = require_Error();
     var defaultHttpAgent = new http.Agent({ keepAlive: true });
     var defaultHttpsAgent = new https.Agent({ keepAlive: true });
@@ -1691,17 +1369,13 @@ var require_StripeResource = __commonJS({
     function StripeResource(stripe2, deprecatedUrlData) {
       this._stripe = stripe2;
       if (deprecatedUrlData) {
-        throw new Error(
-          "Support for curried url params was dropped in stripe-node v7.0.0. Instead, pass two ids."
-        );
+        throw new Error("Support for curried url params was dropped in stripe-node v7.0.0. Instead, pass two ids.");
       }
-      this.basePath = utils.makeURLInterpolator(
-        this.basePath || stripe2.getApiField("basePath")
-      );
+      this.basePath = utils.makeURLInterpolator(this.basePath || stripe2.getApiField("basePath"));
       this.resourcePath = this.path;
       this.path = utils.makeURLInterpolator(this.path);
       if (this.includeBasic) {
-        this.includeBasic.forEach(function (methodName) {
+        this.includeBasic.forEach(function(methodName) {
           this[methodName] = StripeResource.BASIC_METHODS[methodName];
         }, this);
       }
@@ -1710,24 +1384,15 @@ var require_StripeResource = __commonJS({
     StripeResource.prototype = {
       path: "",
       basePath: null,
-      initialize() {},
+      initialize() {
+      },
       requestDataProcessor: null,
       validateRequest: null,
       createFullPath(commandPath, urlData) {
-        return path
-          .join(
-            this.basePath(urlData),
-            this.path(urlData),
-            typeof commandPath == "function"
-              ? commandPath(urlData)
-              : commandPath
-          )
-          .replace(/\\/g, "/");
+        return path.join(this.basePath(urlData), this.path(urlData), typeof commandPath == "function" ? commandPath(urlData) : commandPath).replace(/\\/g, "/");
       },
       createResourcePathWithSymbols(pathWithSymbols) {
-        return `/${path
-          .join(this.resourcePath, pathWithSymbols || "")
-          .replace(/\\/g, "/")}`;
+        return `/${path.join(this.resourcePath, pathWithSymbols || "").replace(/\\/g, "/")}`;
       },
       wrapTimeout: utils.callbackifyPromiseWithTimeout,
       _timeoutHandler(timeout, req, callback) {
@@ -1736,14 +1401,10 @@ var require_StripeResource = __commonJS({
           timeoutErr.code = "ETIMEDOUT";
           req._isAborted = true;
           req.abort();
-          callback.call(
-            this,
-            new StripeConnectionError({
-              message: `Request aborted due to timeout being reached (${timeout}ms)`,
-              detail: timeoutErr,
-            }),
-            null
-          );
+          callback.call(this, new StripeConnectionError({
+            message: `Request aborted due to timeout being reached (${timeout}ms)`,
+            detail: timeoutErr
+          }), null);
         };
       },
       _responseHandler(req, callback) {
@@ -1780,7 +1441,7 @@ var require_StripeResource = __commonJS({
               request_id: res.requestId,
               elapsed: requestDurationMs,
               request_start_time: req._requestStart,
-              request_end_time: requestEndTime,
+              request_end_time: requestEndTime
             });
             this._stripe._emitter.emit("response", responseEvent);
             try {
@@ -1790,7 +1451,7 @@ var require_StripeResource = __commonJS({
                 if (typeof response.error === "string") {
                   response.error = {
                     type: response.error,
-                    message: response.error_description,
+                    message: response.error_description
                   };
                 }
                 response.error.headers = headers;
@@ -1808,47 +1469,35 @@ var require_StripeResource = __commonJS({
                 return callback.call(this, err, null);
               }
             } catch (e) {
-              return callback.call(
-                this,
-                new StripeAPIError({
-                  message: "Invalid JSON received from the Stripe API",
-                  response,
-                  exception: e,
-                  requestId: headers["request-id"],
-                }),
-                null
-              );
+              return callback.call(this, new StripeAPIError({
+                message: "Invalid JSON received from the Stripe API",
+                response,
+                exception: e,
+                requestId: headers["request-id"]
+              }), null);
             }
             this._recordRequestMetrics(res.requestId, requestDurationMs);
             Object.defineProperty(response, "lastResponse", {
               enumerable: false,
               writable: false,
-              value: res,
+              value: res
             });
             callback.call(this, null, response);
           });
         };
       },
       _generateConnectionErrorMessage(requestRetries) {
-        return `An error occurred with our connection to Stripe.${
-          requestRetries > 0
-            ? ` Request was retried ${requestRetries} times.`
-            : ""
-        }`;
+        return `An error occurred with our connection to Stripe.${requestRetries > 0 ? ` Request was retried ${requestRetries} times.` : ""}`;
       },
       _errorHandler(req, requestRetries, callback) {
         return (error) => {
           if (req._isAborted) {
             return;
           }
-          callback.call(
-            this,
-            new StripeConnectionError({
-              message: this._generateConnectionErrorMessage(requestRetries),
-              detail: error,
-            }),
-            null
-          );
+          callback.call(this, new StripeConnectionError({
+            message: this._generateConnectionErrorMessage(requestRetries),
+            detail: error
+          }), null);
         };
       },
       _shouldRetry(res, numRetries, maxRetries) {
@@ -1873,28 +1522,18 @@ var require_StripeResource = __commonJS({
         return false;
       },
       _getSleepTimeInMS(numRetries, retryAfter = null) {
-        const initialNetworkRetryDelay =
-          this._stripe.getInitialNetworkRetryDelay();
+        const initialNetworkRetryDelay = this._stripe.getInitialNetworkRetryDelay();
         const maxNetworkRetryDelay = this._stripe.getMaxNetworkRetryDelay();
-        let sleepSeconds = Math.min(
-          initialNetworkRetryDelay * Math.pow(numRetries - 1, 2),
-          maxNetworkRetryDelay
-        );
+        let sleepSeconds = Math.min(initialNetworkRetryDelay * Math.pow(numRetries - 1, 2), maxNetworkRetryDelay);
         sleepSeconds *= 0.5 * (1 + Math.random());
         sleepSeconds = Math.max(initialNetworkRetryDelay, sleepSeconds);
-        if (
-          Number.isInteger(retryAfter) &&
-          retryAfter <= MAX_RETRY_AFTER_WAIT
-        ) {
+        if (Number.isInteger(retryAfter) && retryAfter <= MAX_RETRY_AFTER_WAIT) {
           sleepSeconds = Math.max(sleepSeconds, retryAfter);
         }
         return sleepSeconds * 1e3;
       },
       _getMaxNetworkRetries(settings = {}) {
-        return settings.maxNetworkRetries &&
-          Number.isInteger(settings.maxNetworkRetries)
-          ? settings.maxNetworkRetries
-          : this._stripe.getMaxNetworkRetries();
+        return settings.maxNetworkRetries && Number.isInteger(settings.maxNetworkRetries) ? settings.maxNetworkRetries : this._stripe.getMaxNetworkRetries();
       },
       _defaultIdempotencyKey(method, settings) {
         const maxRetries = this._getMaxNetworkRetries(settings);
@@ -1903,19 +1542,9 @@ var require_StripeResource = __commonJS({
         }
         return null;
       },
-      _makeHeaders(
-        auth,
-        contentLength,
-        apiVersion,
-        clientUserAgent,
-        method,
-        userSuppliedHeaders,
-        userSuppliedSettings
-      ) {
+      _makeHeaders(auth, contentLength, apiVersion, clientUserAgent, method, userSuppliedHeaders, userSuppliedSettings) {
         const defaultHeaders = {
-          Authorization: auth
-            ? `Bearer ${auth}`
-            : this._stripe.getApiField("auth"),
+          Authorization: auth ? `Bearer ${auth}` : this._stripe.getApiField("auth"),
           Accept: "application/json",
           "Content-Type": "application/x-www-form-urlencoded",
           "Content-Length": contentLength,
@@ -1923,77 +1552,43 @@ var require_StripeResource = __commonJS({
           "X-Stripe-Client-User-Agent": clientUserAgent,
           "X-Stripe-Client-Telemetry": this._getTelemetryHeader(),
           "Stripe-Version": apiVersion,
-          "Idempotency-Key": this._defaultIdempotencyKey(
-            method,
-            userSuppliedSettings
-          ),
+          "Idempotency-Key": this._defaultIdempotencyKey(method, userSuppliedSettings)
         };
-        return Object.assign(
-          utils.removeNullish(defaultHeaders),
-          utils.normalizeHeaders(userSuppliedHeaders)
-        );
+        return Object.assign(utils.removeNullish(defaultHeaders), utils.normalizeHeaders(userSuppliedHeaders));
       },
       _getUserAgentString() {
         const packageVersion = this._stripe.getConstant("PACKAGE_VERSION");
-        const appInfo = this._stripe._appInfo
-          ? this._stripe.getAppInfoAsString()
-          : "";
+        const appInfo = this._stripe._appInfo ? this._stripe.getAppInfoAsString() : "";
         return `Stripe/v1 NodeBindings/${packageVersion} ${appInfo}`.trim();
       },
       _getTelemetryHeader() {
-        if (
-          this._stripe.getTelemetryEnabled() &&
-          this._stripe._prevRequestMetrics.length > 0
-        ) {
+        if (this._stripe.getTelemetryEnabled() && this._stripe._prevRequestMetrics.length > 0) {
           const metrics = this._stripe._prevRequestMetrics.shift();
           return JSON.stringify({
-            last_request_metrics: metrics,
+            last_request_metrics: metrics
           });
         }
       },
       _recordRequestMetrics(requestId, requestDurationMs) {
         if (this._stripe.getTelemetryEnabled() && requestId) {
-          if (
-            this._stripe._prevRequestMetrics.length >
-            StripeResource.MAX_BUFFERED_REQUEST_METRICS
-          ) {
-            utils.emitWarning(
-              "Request metrics buffer is full, dropping telemetry message."
-            );
+          if (this._stripe._prevRequestMetrics.length > StripeResource.MAX_BUFFERED_REQUEST_METRICS) {
+            utils.emitWarning("Request metrics buffer is full, dropping telemetry message.");
           } else {
             this._stripe._prevRequestMetrics.push({
               request_id: requestId,
-              request_duration_ms: requestDurationMs,
+              request_duration_ms: requestDurationMs
             });
           }
         }
       },
       _request(method, host, path2, data, auth, options = {}, callback) {
         let requestData;
-        const retryRequest = (
-          requestFn,
-          apiVersion,
-          headers,
-          requestRetries,
-          retryAfter
-        ) => {
-          return setTimeout(
-            requestFn,
-            this._getSleepTimeInMS(requestRetries, retryAfter),
-            apiVersion,
-            headers,
-            requestRetries + 1
-          );
+        const retryRequest = (requestFn, apiVersion, headers, requestRetries, retryAfter) => {
+          return setTimeout(requestFn, this._getSleepTimeInMS(requestRetries, retryAfter), apiVersion, headers, requestRetries + 1);
         };
         const makeRequest = (apiVersion, headers, numRetries) => {
-          const timeout =
-            options.settings &&
-            Number.isInteger(options.settings.timeout) &&
-            options.settings.timeout >= 0
-              ? options.settings.timeout
-              : this._stripe.getApiField("timeout");
-          const isInsecureConnection =
-            this._stripe.getApiField("protocol") === "http";
+          const timeout = options.settings && Number.isInteger(options.settings.timeout) && options.settings.timeout >= 0 ? options.settings.timeout : this._stripe.getApiField("timeout");
+          const isInsecureConnection = this._stripe.getApiField("protocol") === "http";
           let agent = this._stripe.getApiField("agent");
           if (agent == null) {
             agent = isInsecureConnection ? defaultHttpAgent : defaultHttpsAgent;
@@ -2005,7 +1600,7 @@ var require_StripeResource = __commonJS({
             method,
             agent,
             headers,
-            ciphers: "DEFAULT:!aNULL:!eNULL:!LOW:!EXPORT:!SSLv2:!MD5",
+            ciphers: "DEFAULT:!aNULL:!eNULL:!LOW:!EXPORT:!SSLv2:!MD5"
           });
           const requestStartTime = Date.now();
           const requestEvent = utils.removeNullish({
@@ -2014,7 +1609,7 @@ var require_StripeResource = __commonJS({
             idempotency_key: headers["Idempotency-Key"],
             method,
             path: path2,
-            request_start_time: requestStartTime,
+            request_start_time: requestStartTime
           });
           const requestRetries = numRetries || 0;
           const maxRetries = this._getMaxNetworkRetries(options.settings);
@@ -2024,39 +1619,24 @@ var require_StripeResource = __commonJS({
           req.setTimeout(timeout, this._timeoutHandler(timeout, req, callback));
           req.once("response", (res) => {
             if (this._shouldRetry(res, requestRetries, maxRetries)) {
-              return retryRequest(
-                makeRequest,
-                apiVersion,
-                headers,
-                requestRetries,
-                ((res || {}).headers || {})["retry-after"]
-              );
+              return retryRequest(makeRequest, apiVersion, headers, requestRetries, ((res || {}).headers || {})["retry-after"]);
             } else {
               return this._responseHandler(req, callback)(res);
             }
           });
           req.on("error", (error) => {
             if (this._shouldRetry(null, requestRetries, maxRetries)) {
-              return retryRequest(
-                makeRequest,
-                apiVersion,
-                headers,
-                requestRetries,
-                null
-              );
+              return retryRequest(makeRequest, apiVersion, headers, requestRetries, null);
             } else {
               return this._errorHandler(req, requestRetries, callback)(error);
             }
           });
           req.once("socket", (socket) => {
             if (socket.connecting) {
-              socket.once(
-                isInsecureConnection ? "connect" : "secureConnect",
-                () => {
-                  req.write(requestData);
-                  req.end();
-                }
-              );
+              socket.once(isInsecureConnection ? "connect" : "secureConnect", () => {
+                req.write(requestData);
+                req.end();
+              });
             } else {
               req.write(requestData);
               req.end();
@@ -2070,32 +1650,19 @@ var require_StripeResource = __commonJS({
           requestData = data2;
           this._stripe.getClientUserAgent((clientUserAgent) => {
             const apiVersion = this._stripe.getApiField("version");
-            const headers = this._makeHeaders(
-              auth,
-              requestData.length,
-              apiVersion,
-              clientUserAgent,
-              method,
-              options.headers,
-              options.settings
-            );
+            const headers = this._makeHeaders(auth, requestData.length, apiVersion, clientUserAgent, method, options.headers, options.settings);
             makeRequest(apiVersion, headers);
           });
         };
         if (this.requestDataProcessor) {
-          this.requestDataProcessor(
-            method,
-            data,
-            options.headers,
-            prepareAndMakeRequest
-          );
+          this.requestDataProcessor(method, data, options.headers, prepareAndMakeRequest);
         } else {
           prepareAndMakeRequest(null, utils.stringifyRequestData(data || {}));
         }
-      },
+      }
     };
     module2.exports = StripeResource;
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Accounts.js
@@ -2108,13 +1675,13 @@ var require_Accounts = __commonJS({
       path: "",
       create: stripeMethod({
         method: "POST",
-        path: "accounts",
+        path: "accounts"
       }),
       retrieve(id) {
         if (typeof id === "string") {
           return stripeMethod({
             method: "GET",
-            path: "accounts/{id}",
+            path: "accounts/{id}"
           }).apply(this, arguments);
         } else {
           if (id === null || id === void 0) {
@@ -2122,88 +1689,88 @@ var require_Accounts = __commonJS({
           }
           return stripeMethod({
             method: "GET",
-            path: "account",
+            path: "account"
           }).apply(this, arguments);
         }
       },
       update: stripeMethod({
         method: "POST",
-        path: "accounts/{account}",
+        path: "accounts/{account}"
       }),
       list: stripeMethod({
         method: "GET",
         path: "accounts",
-        methodType: "list",
+        methodType: "list"
       }),
       del: stripeMethod({
         method: "DELETE",
-        path: "accounts/{account}",
+        path: "accounts/{account}"
       }),
       reject: stripeMethod({
         method: "POST",
-        path: "accounts/{account}/reject",
+        path: "accounts/{account}/reject"
       }),
       retrieveCapability: stripeMethod({
         method: "GET",
-        path: "accounts/{account}/capabilities/{capability}",
+        path: "accounts/{account}/capabilities/{capability}"
       }),
       updateCapability: stripeMethod({
         method: "POST",
-        path: "accounts/{account}/capabilities/{capability}",
+        path: "accounts/{account}/capabilities/{capability}"
       }),
       listCapabilities: stripeMethod({
         method: "GET",
         path: "accounts/{account}/capabilities",
-        methodType: "list",
+        methodType: "list"
       }),
       createExternalAccount: stripeMethod({
         method: "POST",
-        path: "accounts/{account}/external_accounts",
+        path: "accounts/{account}/external_accounts"
       }),
       retrieveExternalAccount: stripeMethod({
         method: "GET",
-        path: "accounts/{account}/external_accounts/{id}",
+        path: "accounts/{account}/external_accounts/{id}"
       }),
       updateExternalAccount: stripeMethod({
         method: "POST",
-        path: "accounts/{account}/external_accounts/{id}",
+        path: "accounts/{account}/external_accounts/{id}"
       }),
       listExternalAccounts: stripeMethod({
         method: "GET",
         path: "accounts/{account}/external_accounts",
-        methodType: "list",
+        methodType: "list"
       }),
       deleteExternalAccount: stripeMethod({
         method: "DELETE",
-        path: "accounts/{account}/external_accounts/{id}",
+        path: "accounts/{account}/external_accounts/{id}"
       }),
       createLoginLink: stripeMethod({
         method: "POST",
-        path: "accounts/{account}/login_links",
+        path: "accounts/{account}/login_links"
       }),
       createPerson: stripeMethod({
         method: "POST",
-        path: "accounts/{account}/persons",
+        path: "accounts/{account}/persons"
       }),
       retrievePerson: stripeMethod({
         method: "GET",
-        path: "accounts/{account}/persons/{person}",
+        path: "accounts/{account}/persons/{person}"
       }),
       updatePerson: stripeMethod({
         method: "POST",
-        path: "accounts/{account}/persons/{person}",
+        path: "accounts/{account}/persons/{person}"
       }),
       listPersons: stripeMethod({
         method: "GET",
         path: "accounts/{account}/persons",
-        methodType: "list",
+        methodType: "list"
       }),
       deletePerson: stripeMethod({
         method: "DELETE",
-        path: "accounts/{account}/persons/{person}",
-      }),
+        path: "accounts/{account}/persons/{person}"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/AccountLinks.js
@@ -2213,9 +1780,9 @@ var require_AccountLinks = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "account_links",
-      includeBasic: ["create"],
+      includeBasic: ["create"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/ApplePayDomains.js
@@ -2225,9 +1792,9 @@ var require_ApplePayDomains = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "apple_pay/domains",
-      includeBasic: ["create", "retrieve", "list", "del"],
+      includeBasic: ["create", "retrieve", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/ApplicationFees.js
@@ -2241,23 +1808,23 @@ var require_ApplicationFees = __commonJS({
       includeBasic: ["retrieve", "list"],
       createRefund: stripeMethod({
         method: "POST",
-        path: "/{id}/refunds",
+        path: "/{id}/refunds"
       }),
       retrieveRefund: stripeMethod({
         method: "GET",
-        path: "/{fee}/refunds/{id}",
+        path: "/{fee}/refunds/{id}"
       }),
       updateRefund: stripeMethod({
         method: "POST",
-        path: "/{fee}/refunds/{id}",
+        path: "/{fee}/refunds/{id}"
       }),
       listRefunds: stripeMethod({
         method: "GET",
         path: "/{id}/refunds",
-        methodType: "list",
-      }),
+        methodType: "list"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Balance.js
@@ -2270,25 +1837,22 @@ var require_Balance = __commonJS({
       path: "balance",
       retrieve: stripeMethod({
         method: "GET",
-        path: "",
-      }),
+        path: ""
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/BalanceTransactions.js
 var require_BalanceTransactions = __commonJS({
-  "node_modules/stripe/lib/resources/BalanceTransactions.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/BalanceTransactions.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "balance_transactions",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Charges.js
@@ -2302,10 +1866,10 @@ var require_Charges = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       capture: stripeMethod({
         method: "POST",
-        path: "/{charge}/capture",
-      }),
+        path: "/{charge}/capture"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/CountrySpecs.js
@@ -2315,9 +1879,9 @@ var require_CountrySpecs = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "country_specs",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Coupons.js
@@ -2327,9 +1891,9 @@ var require_Coupons = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "coupons",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/CreditNotes.js
@@ -2343,24 +1907,24 @@ var require_CreditNotes = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       preview: stripeMethod({
         method: "GET",
-        path: "/preview",
+        path: "/preview"
       }),
       voidCreditNote: stripeMethod({
         method: "POST",
-        path: "/{id}/void",
+        path: "/{id}/void"
       }),
       listLineItems: stripeMethod({
         method: "GET",
         path: "/{creditNote}/lines",
-        methodType: "list",
+        methodType: "list"
       }),
       listPreviewLineItems: stripeMethod({
         method: "GET",
         path: "/preview/lines",
-        methodType: "list",
-      }),
+        methodType: "list"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Customers.js
@@ -2374,69 +1938,69 @@ var require_Customers = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list", "del"],
       deleteDiscount: stripeMethod({
         method: "DELETE",
-        path: "/{customer}/discount",
+        path: "/{customer}/discount"
       }),
       createBalanceTransaction: stripeMethod({
         method: "POST",
-        path: "/{customer}/balance_transactions",
+        path: "/{customer}/balance_transactions"
       }),
       retrieveBalanceTransaction: stripeMethod({
         method: "GET",
-        path: "/{customer}/balance_transactions/{transaction}",
+        path: "/{customer}/balance_transactions/{transaction}"
       }),
       updateBalanceTransaction: stripeMethod({
         method: "POST",
-        path: "/{customer}/balance_transactions/{transaction}",
+        path: "/{customer}/balance_transactions/{transaction}"
       }),
       listBalanceTransactions: stripeMethod({
         method: "GET",
         path: "/{customer}/balance_transactions",
-        methodType: "list",
+        methodType: "list"
       }),
       createSource: stripeMethod({
         method: "POST",
-        path: "/{customer}/sources",
+        path: "/{customer}/sources"
       }),
       retrieveSource: stripeMethod({
         method: "GET",
-        path: "/{customer}/sources/{id}",
+        path: "/{customer}/sources/{id}"
       }),
       updateSource: stripeMethod({
         method: "POST",
-        path: "/{customer}/sources/{id}",
+        path: "/{customer}/sources/{id}"
       }),
       listSources: stripeMethod({
         method: "GET",
         path: "/{customer}/sources",
-        methodType: "list",
+        methodType: "list"
       }),
       deleteSource: stripeMethod({
         method: "DELETE",
-        path: "/{customer}/sources/{id}",
+        path: "/{customer}/sources/{id}"
       }),
       verifySource: stripeMethod({
         method: "POST",
-        path: "/{customer}/sources/{id}/verify",
+        path: "/{customer}/sources/{id}/verify"
       }),
       createTaxId: stripeMethod({
         method: "POST",
-        path: "/{customer}/tax_ids",
+        path: "/{customer}/tax_ids"
       }),
       retrieveTaxId: stripeMethod({
         method: "GET",
-        path: "/{customer}/tax_ids/{id}",
+        path: "/{customer}/tax_ids/{id}"
       }),
       listTaxIds: stripeMethod({
         method: "GET",
         path: "/{customer}/tax_ids",
-        methodType: "list",
+        methodType: "list"
       }),
       deleteTaxId: stripeMethod({
         method: "DELETE",
-        path: "/{customer}/tax_ids/{id}",
-      }),
+        path: "/{customer}/tax_ids/{id}"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Disputes.js
@@ -2450,10 +2014,10 @@ var require_Disputes = __commonJS({
       includeBasic: ["retrieve", "update", "list"],
       close: stripeMethod({
         method: "POST",
-        path: "/{dispute}/close",
-      }),
+        path: "/{dispute}/close"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/EphemeralKeys.js
@@ -2470,14 +2034,12 @@ var require_EphemeralKeys = __commonJS({
         path: "",
         validator: (data, options) => {
           if (!options.headers || !options.headers["Stripe-Version"]) {
-            throw new Error(
-              "stripe_version must be specified to create an ephemeral key"
-            );
+            throw new Error("stripe_version must be specified to create an ephemeral key");
           }
-        },
-      }),
+        }
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Events.js
@@ -2487,9 +2049,9 @@ var require_Events = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "events",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/ExchangeRates.js
@@ -2499,9 +2061,9 @@ var require_ExchangeRates = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "exchange_rates",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/multipart.js
@@ -2510,11 +2072,10 @@ var require_multipart = __commonJS({
     "use strict";
     var utils = require_utils2();
     var { StripeError } = require_Error();
-    var StreamProcessingError = class extends StripeError {};
+    var StreamProcessingError = class extends StripeError {
+    };
     var multipartDataGenerator = (method, data, headers) => {
-      const segno = (
-        Math.round(Math.random() * 1e16) + Math.round(Math.random() * 1e16)
-      ).toString();
+      const segno = (Math.round(Math.random() * 1e16) + Math.round(Math.random() * 1e16)).toString();
       headers["Content-Type"] = `multipart/form-data; boundary=${segno}`;
       let buffer = Buffer.alloc(0);
       function push(l) {
@@ -2533,11 +2094,7 @@ var require_multipart = __commonJS({
         const v = flattenedData[k];
         push(`--${segno}`);
         if (v.hasOwnProperty("data")) {
-          push(
-            `Content-Disposition: form-data; name=${q(k)}; filename=${q(
-              v.name || "blob"
-            )}`
-          );
+          push(`Content-Disposition: form-data; name=${q(k)}; filename=${q(v.name || "blob")}`);
           push(`Content-Type: ${v.type || "application/octet-stream"}`);
           push("");
           push(v.data);
@@ -2552,26 +2109,19 @@ var require_multipart = __commonJS({
     };
     var streamProcessor = (method, data, headers, callback) => {
       const bufferArray = [];
-      data.file.data
-        .on("data", (line) => {
-          bufferArray.push(line);
-        })
-        .once("end", () => {
-          const bufferData = Object.assign({}, data);
-          bufferData.file.data = Buffer.concat(bufferArray);
-          const buffer = multipartDataGenerator(method, bufferData, headers);
-          callback(null, buffer);
-        })
-        .on("error", (err) => {
-          callback(
-            new StreamProcessingError({
-              message:
-                "An error occurred while attempting to process the file for upload.",
-              detail: err,
-            }),
-            null
-          );
-        });
+      data.file.data.on("data", (line) => {
+        bufferArray.push(line);
+      }).once("end", () => {
+        const bufferData = Object.assign({}, data);
+        bufferData.file.data = Buffer.concat(bufferArray);
+        const buffer = multipartDataGenerator(method, bufferData, headers);
+        callback(null, buffer);
+      }).on("error", (err) => {
+        callback(new StreamProcessingError({
+          message: "An error occurred while attempting to process the file for upload.",
+          detail: err
+        }), null);
+      });
     };
     var multipartRequestDataProcessor = (method, data, headers, callback) => {
       data = data || {};
@@ -2585,9 +2135,8 @@ var require_multipart = __commonJS({
       const buffer = multipartDataGenerator(method, data, headers);
       return callback(null, buffer);
     };
-    module2.exports.multipartRequestDataProcessor =
-      multipartRequestDataProcessor;
-  },
+    module2.exports.multipartRequestDataProcessor = multipartRequestDataProcessor;
+  }
 });
 
 // node_modules/stripe/lib/resources/Files.js
@@ -2603,13 +2152,13 @@ var require_Files = __commonJS({
       create: stripeMethod({
         method: "POST",
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data"
         },
-        host: "files.stripe.com",
+        host: "files.stripe.com"
       }),
-      requestDataProcessor: multipartRequestDataProcessor,
+      requestDataProcessor: multipartRequestDataProcessor
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/FileLinks.js
@@ -2619,9 +2168,9 @@ var require_FileLinks = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "file_links",
-      includeBasic: ["create", "retrieve", "update", "list"],
+      includeBasic: ["create", "retrieve", "update", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Invoices.js
@@ -2635,40 +2184,40 @@ var require_Invoices = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list", "del"],
       finalizeInvoice: stripeMethod({
         method: "POST",
-        path: "/{invoice}/finalize",
+        path: "/{invoice}/finalize"
       }),
       markUncollectible: stripeMethod({
         method: "POST",
-        path: "/{invoice}/mark_uncollectible",
+        path: "/{invoice}/mark_uncollectible"
       }),
       pay: stripeMethod({
         method: "POST",
-        path: "/{invoice}/pay",
+        path: "/{invoice}/pay"
       }),
       retrieveUpcoming: stripeMethod({
         method: "GET",
-        path: "/upcoming",
+        path: "/upcoming"
       }),
       sendInvoice: stripeMethod({
         method: "POST",
-        path: "/{invoice}/send",
+        path: "/{invoice}/send"
       }),
       voidInvoice: stripeMethod({
         method: "POST",
-        path: "/{invoice}/void",
+        path: "/{invoice}/void"
       }),
       listLineItems: stripeMethod({
         method: "GET",
         path: "/{invoice}/lines",
-        methodType: "list",
+        methodType: "list"
       }),
       listUpcomingLineItems: stripeMethod({
         method: "GET",
         path: "/upcoming/lines",
-        methodType: "list",
-      }),
+        methodType: "list"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/InvoiceItems.js
@@ -2678,9 +2227,9 @@ var require_InvoiceItems = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "invoiceitems",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/IssuerFraudRecords.js
@@ -2690,9 +2239,9 @@ var require_IssuerFraudRecords = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "issuer_fraud_records",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Mandates.js
@@ -2702,9 +2251,9 @@ var require_Mandates = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "mandates",
-      includeBasic: ["retrieve"],
+      includeBasic: ["retrieve"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/OAuth.js
@@ -2733,14 +2282,12 @@ var require_OAuth = __commonJS({
         if (!params.scope) {
           params.scope = "read_write";
         }
-        return `https://${oAuthHost}/${path}?${utils.stringifyRequestData(
-          params
-        )}`;
+        return `https://${oAuthHost}/${path}?${utils.stringifyRequestData(params)}`;
       },
       token: stripeMethod({
         method: "POST",
         path: "oauth/token",
-        host: oAuthHost,
+        host: oAuthHost
       }),
       deauthorize(spec) {
         if (!spec.client_id) {
@@ -2749,11 +2296,11 @@ var require_OAuth = __commonJS({
         return stripeMethod({
           method: "POST",
           path: "oauth/deauthorize",
-          host: oAuthHost,
+          host: oAuthHost
         }).apply(this, arguments);
-      },
+      }
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Orders.js
@@ -2767,14 +2314,14 @@ var require_Orders = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       pay: stripeMethod({
         method: "POST",
-        path: "/{id}/pay",
+        path: "/{id}/pay"
       }),
       returnOrder: stripeMethod({
         method: "POST",
-        path: "/{id}/returns",
-      }),
+        path: "/{id}/returns"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/OrderReturns.js
@@ -2784,9 +2331,9 @@ var require_OrderReturns = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "order_returns",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/PaymentIntents.js
@@ -2800,18 +2347,18 @@ var require_PaymentIntents = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       cancel: stripeMethod({
         method: "POST",
-        path: "/{intent}/cancel",
+        path: "/{intent}/cancel"
       }),
       capture: stripeMethod({
         method: "POST",
-        path: "/{intent}/capture",
+        path: "/{intent}/capture"
       }),
       confirm: stripeMethod({
         method: "POST",
-        path: "/{intent}/confirm",
-      }),
+        path: "/{intent}/confirm"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/PaymentMethods.js
@@ -2825,14 +2372,14 @@ var require_PaymentMethods = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       attach: stripeMethod({
         method: "POST",
-        path: "/{paymentMethod}/attach",
+        path: "/{paymentMethod}/attach"
       }),
       detach: stripeMethod({
         method: "POST",
-        path: "/{paymentMethod}/detach",
-      }),
+        path: "/{paymentMethod}/detach"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Payouts.js
@@ -2846,14 +2393,14 @@ var require_Payouts = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       cancel: stripeMethod({
         method: "POST",
-        path: "/{payout}/cancel",
+        path: "/{payout}/cancel"
       }),
       reverse: stripeMethod({
         method: "POST",
-        path: "/{payout}/reverse",
-      }),
+        path: "/{payout}/reverse"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Plans.js
@@ -2863,9 +2410,9 @@ var require_Plans = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "plans",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Prices.js
@@ -2875,9 +2422,9 @@ var require_Prices = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "prices",
-      includeBasic: ["create", "retrieve", "update", "list"],
+      includeBasic: ["create", "retrieve", "update", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Products.js
@@ -2887,9 +2434,9 @@ var require_Products = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "products",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/PromotionCodes.js
@@ -2899,9 +2446,9 @@ var require_PromotionCodes = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "promotion_codes",
-      includeBasic: ["create", "retrieve", "update", "list"],
+      includeBasic: ["create", "retrieve", "update", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Refunds.js
@@ -2911,9 +2458,9 @@ var require_Refunds = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "refunds",
-      includeBasic: ["create", "retrieve", "update", "list"],
+      includeBasic: ["create", "retrieve", "update", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Reviews.js
@@ -2927,10 +2474,10 @@ var require_Reviews = __commonJS({
       includeBasic: ["retrieve", "list"],
       approve: stripeMethod({
         method: "POST",
-        path: "/{review}/approve",
-      }),
+        path: "/{review}/approve"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/SetupAttempts.js
@@ -2940,9 +2487,9 @@ var require_SetupAttempts = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "setup_attempts",
-      includeBasic: ["list"],
+      includeBasic: ["list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/SetupIntents.js
@@ -2956,14 +2503,14 @@ var require_SetupIntents = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       cancel: stripeMethod({
         method: "POST",
-        path: "/{intent}/cancel",
+        path: "/{intent}/cancel"
       }),
       confirm: stripeMethod({
         method: "POST",
-        path: "/{intent}/confirm",
-      }),
+        path: "/{intent}/confirm"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/SKUs.js
@@ -2973,9 +2520,9 @@ var require_SKUs = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "skus",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Sources.js
@@ -2990,14 +2537,14 @@ var require_Sources = __commonJS({
       listSourceTransactions: stripeMethod({
         method: "GET",
         path: "/{source}/source_transactions",
-        methodType: "list",
+        methodType: "list"
       }),
       verify: stripeMethod({
         method: "POST",
-        path: "/{source}/verify",
-      }),
+        path: "/{source}/verify"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Subscriptions.js
@@ -3011,10 +2558,10 @@ var require_Subscriptions = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list", "del"],
       deleteDiscount: stripeMethod({
         method: "DELETE",
-        path: "/{subscriptionExposedId}/discount",
-      }),
+        path: "/{subscriptionExposedId}/discount"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/SubscriptionItems.js
@@ -3028,23 +2575,20 @@ var require_SubscriptionItems = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list", "del"],
       createUsageRecord: stripeMethod({
         method: "POST",
-        path: "/{subscriptionItem}/usage_records",
+        path: "/{subscriptionItem}/usage_records"
       }),
       listUsageRecordSummaries: stripeMethod({
         method: "GET",
         path: "/{subscriptionItem}/usage_record_summaries",
-        methodType: "list",
-      }),
+        methodType: "list"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/SubscriptionSchedules.js
 var require_SubscriptionSchedules = __commonJS({
-  "node_modules/stripe/lib/resources/SubscriptionSchedules.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/SubscriptionSchedules.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     var stripeMethod = StripeResource.method;
@@ -3053,14 +2597,14 @@ var require_SubscriptionSchedules = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       cancel: stripeMethod({
         method: "POST",
-        path: "/{schedule}/cancel",
+        path: "/{schedule}/cancel"
       }),
       release: stripeMethod({
         method: "POST",
-        path: "/{schedule}/release",
-      }),
+        path: "/{schedule}/release"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/TaxRates.js
@@ -3070,9 +2614,9 @@ var require_TaxRates = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "tax_rates",
-      includeBasic: ["create", "retrieve", "update", "list"],
+      includeBasic: ["create", "retrieve", "update", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Tokens.js
@@ -3082,9 +2626,9 @@ var require_Tokens = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "tokens",
-      includeBasic: ["create", "retrieve"],
+      includeBasic: ["create", "retrieve"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Topups.js
@@ -3098,10 +2642,10 @@ var require_Topups = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       cancel: stripeMethod({
         method: "POST",
-        path: "/{topup}/cancel",
-      }),
+        path: "/{topup}/cancel"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Transfers.js
@@ -3115,23 +2659,23 @@ var require_Transfers = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       createReversal: stripeMethod({
         method: "POST",
-        path: "/{id}/reversals",
+        path: "/{id}/reversals"
       }),
       retrieveReversal: stripeMethod({
         method: "GET",
-        path: "/{transfer}/reversals/{id}",
+        path: "/{transfer}/reversals/{id}"
       }),
       updateReversal: stripeMethod({
         method: "POST",
-        path: "/{transfer}/reversals/{id}",
+        path: "/{transfer}/reversals/{id}"
       }),
       listReversals: stripeMethod({
         method: "GET",
         path: "/{id}/reversals",
-        methodType: "list",
-      }),
+        methodType: "list"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/WebhookEndpoints.js
@@ -3141,24 +2685,21 @@ var require_WebhookEndpoints = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "webhook_endpoints",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/BillingPortal/Sessions.js
 var require_Sessions = __commonJS({
-  "node_modules/stripe/lib/resources/BillingPortal/Sessions.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/BillingPortal/Sessions.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "billing_portal/sessions",
-      includeBasic: ["create"],
+      includeBasic: ["create"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Checkout/Sessions.js
@@ -3173,18 +2714,15 @@ var require_Sessions2 = __commonJS({
       listLineItems: stripeMethod({
         method: "GET",
         path: "/{session}/line_items",
-        methodType: "list",
-      }),
+        methodType: "list"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Issuing/Authorizations.js
 var require_Authorizations = __commonJS({
-  "node_modules/stripe/lib/resources/Issuing/Authorizations.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Issuing/Authorizations.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     var stripeMethod = StripeResource.method;
@@ -3193,14 +2731,14 @@ var require_Authorizations = __commonJS({
       includeBasic: ["retrieve", "update", "list"],
       approve: stripeMethod({
         method: "POST",
-        path: "/{authorization}/approve",
+        path: "/{authorization}/approve"
       }),
       decline: stripeMethod({
         method: "POST",
-        path: "/{authorization}/decline",
-      }),
+        path: "/{authorization}/decline"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Issuing/Cards.js
@@ -3214,25 +2752,22 @@ var require_Cards = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       retrieveDetails: stripeMethod({
         method: "GET",
-        path: "/{card}/details",
-      }),
+        path: "/{card}/details"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Issuing/Cardholders.js
 var require_Cardholders = __commonJS({
-  "node_modules/stripe/lib/resources/Issuing/Cardholders.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Issuing/Cardholders.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "issuing/cardholders",
-      includeBasic: ["create", "retrieve", "update", "list"],
+      includeBasic: ["create", "retrieve", "update", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Issuing/Disputes.js
@@ -3246,40 +2781,34 @@ var require_Disputes2 = __commonJS({
       includeBasic: ["create", "retrieve", "update", "list"],
       submit: stripeMethod({
         method: "POST",
-        path: "/{dispute}/submit",
-      }),
+        path: "/{dispute}/submit"
+      })
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Issuing/Transactions.js
 var require_Transactions = __commonJS({
-  "node_modules/stripe/lib/resources/Issuing/Transactions.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Issuing/Transactions.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "issuing/transactions",
-      includeBasic: ["retrieve", "update", "list"],
+      includeBasic: ["retrieve", "update", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Radar/EarlyFraudWarnings.js
 var require_EarlyFraudWarnings = __commonJS({
-  "node_modules/stripe/lib/resources/Radar/EarlyFraudWarnings.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Radar/EarlyFraudWarnings.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "radar/early_fraud_warnings",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Radar/ValueLists.js
@@ -3289,84 +2818,69 @@ var require_ValueLists = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "radar/value_lists",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Radar/ValueListItems.js
 var require_ValueListItems = __commonJS({
-  "node_modules/stripe/lib/resources/Radar/ValueListItems.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Radar/ValueListItems.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "radar/value_list_items",
-      includeBasic: ["create", "retrieve", "list", "del"],
+      includeBasic: ["create", "retrieve", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Reporting/ReportRuns.js
 var require_ReportRuns = __commonJS({
-  "node_modules/stripe/lib/resources/Reporting/ReportRuns.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Reporting/ReportRuns.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "reporting/report_runs",
-      includeBasic: ["create", "retrieve", "list"],
+      includeBasic: ["create", "retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Reporting/ReportTypes.js
 var require_ReportTypes = __commonJS({
-  "node_modules/stripe/lib/resources/Reporting/ReportTypes.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Reporting/ReportTypes.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "reporting/report_types",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Sigma/ScheduledQueryRuns.js
 var require_ScheduledQueryRuns = __commonJS({
-  "node_modules/stripe/lib/resources/Sigma/ScheduledQueryRuns.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Sigma/ScheduledQueryRuns.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "sigma/scheduled_query_runs",
-      includeBasic: ["retrieve", "list"],
+      includeBasic: ["retrieve", "list"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Terminal/ConnectionTokens.js
 var require_ConnectionTokens = __commonJS({
-  "node_modules/stripe/lib/resources/Terminal/ConnectionTokens.js"(
-    exports2,
-    module2
-  ) {
+  "node_modules/stripe/lib/resources/Terminal/ConnectionTokens.js"(exports2, module2) {
     "use strict";
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "terminal/connection_tokens",
-      includeBasic: ["create"],
+      includeBasic: ["create"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Terminal/Locations.js
@@ -3376,9 +2890,9 @@ var require_Locations = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "terminal/locations",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources/Terminal/Readers.js
@@ -3388,9 +2902,9 @@ var require_Readers = __commonJS({
     var StripeResource = require_StripeResource();
     module2.exports = StripeResource.extend({
       path: "terminal/readers",
-      includeBasic: ["create", "retrieve", "update", "list", "del"],
+      includeBasic: ["create", "retrieve", "update", "list", "del"]
     });
-  },
+  }
 });
 
 // node_modules/stripe/lib/resources.js
@@ -3446,37 +2960,37 @@ var require_resources = __commonJS({
       Transfers: require_Transfers(),
       WebhookEndpoints: require_WebhookEndpoints(),
       BillingPortal: resourceNamespace("billingPortal", {
-        Sessions: require_Sessions(),
+        Sessions: require_Sessions()
       }),
       Checkout: resourceNamespace("checkout", {
-        Sessions: require_Sessions2(),
+        Sessions: require_Sessions2()
       }),
       Issuing: resourceNamespace("issuing", {
         Authorizations: require_Authorizations(),
         Cards: require_Cards(),
         Cardholders: require_Cardholders(),
         Disputes: require_Disputes2(),
-        Transactions: require_Transactions(),
+        Transactions: require_Transactions()
       }),
       Radar: resourceNamespace("radar", {
         EarlyFraudWarnings: require_EarlyFraudWarnings(),
         ValueLists: require_ValueLists(),
-        ValueListItems: require_ValueListItems(),
+        ValueListItems: require_ValueListItems()
       }),
       Reporting: resourceNamespace("reporting", {
         ReportRuns: require_ReportRuns(),
-        ReportTypes: require_ReportTypes(),
+        ReportTypes: require_ReportTypes()
       }),
       Sigma: resourceNamespace("sigma", {
-        ScheduledQueryRuns: require_ScheduledQueryRuns(),
+        ScheduledQueryRuns: require_ScheduledQueryRuns()
       }),
       Terminal: resourceNamespace("terminal", {
         ConnectionTokens: require_ConnectionTokens(),
         Locations: require_Locations(),
-        Readers: require_Readers(),
-      }),
+        Readers: require_Readers()
+      })
     };
-  },
+  }
 });
 
 // node_modules/stripe/package.json
@@ -3486,22 +3000,27 @@ var require_package = __commonJS({
       name: "stripe",
       version: "8.130.0",
       description: "Stripe API wrapper",
-      keywords: ["stripe", "payment processing", "credit cards", "api"],
+      keywords: [
+        "stripe",
+        "payment processing",
+        "credit cards",
+        "api"
+      ],
       homepage: "https://github.com/stripe/stripe-node",
       author: "Stripe <support@stripe.com> (https://stripe.com/)",
       contributors: [
         "Ask Bj\xF8rn Hansen <ask@develooper.com> (http://www.askask.com/)",
         "Michelle Bu <michelle@stripe.com>",
         "Alex Sexton <alex@stripe.com>",
-        "James Padolsey",
+        "James Padolsey"
       ],
       repository: {
         type: "git",
-        url: "git://github.com/stripe/stripe-node.git",
+        url: "git://github.com/stripe/stripe-node.git"
       },
       "bugs:": "https://github.com/stripe/stripe-node/issues",
       engines: {
-        node: "^8.1 || >=10.*",
+        node: "^8.1 || >=10.*"
       },
       main: "lib/stripe.js",
       types: "types/2020-08-27/index.d.ts",
@@ -3520,11 +3039,11 @@ var require_package = __commonJS({
         nock: "^10.0.6",
         nyc: "^14.1.0",
         prettier: "^1.16.4",
-        typescript: "^3.7.2",
+        typescript: "^3.7.2"
       },
       dependencies: {
         "@types/node": ">=8.1.0",
-        qs: "^6.6.0",
+        qs: "^6.6.0"
       },
       license: "MIT",
       scripts: {
@@ -3536,11 +3055,10 @@ var require_package = __commonJS({
         lint: "eslint --ext .js,.jsx,.ts .",
         fix: "yarn lint --fix && ./scripts/updateAPIVersion.js",
         report: "nyc -r text -r lcov report",
-        coveralls:
-          "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-      },
+        coveralls: "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+      }
     };
-  },
+  }
 });
 
 // node_modules/stripe/lib/Webhooks.js
@@ -3553,51 +3071,35 @@ var require_Webhooks = __commonJS({
     var Webhook = {
       DEFAULT_TOLERANCE: 300,
       constructEvent(payload, header, secret, tolerance) {
-        this.signature.verifyHeader(
-          payload,
-          header,
-          secret,
-          tolerance || Webhook.DEFAULT_TOLERANCE
-        );
+        this.signature.verifyHeader(payload, header, secret, tolerance || Webhook.DEFAULT_TOLERANCE);
         const jsonPayload = JSON.parse(payload);
         return jsonPayload;
       },
-      generateTestHeaderString: function (opts) {
+      generateTestHeaderString: function(opts) {
         if (!opts) {
           throw new StripeError({
-            message: "Options are required",
+            message: "Options are required"
           });
         }
-        opts.timestamp =
-          Math.floor(opts.timestamp) || Math.floor(Date.now() / 1e3);
+        opts.timestamp = Math.floor(opts.timestamp) || Math.floor(Date.now() / 1e3);
         opts.scheme = opts.scheme || signature.EXPECTED_SCHEME;
-        opts.signature =
-          opts.signature ||
-          signature._computeSignature(
-            opts.timestamp + "." + opts.payload,
-            opts.secret
-          );
+        opts.signature = opts.signature || signature._computeSignature(opts.timestamp + "." + opts.payload, opts.secret);
         const generatedHeader = [
           "t=" + opts.timestamp,
-          opts.scheme + "=" + opts.signature,
+          opts.scheme + "=" + opts.signature
         ].join(",");
         return generatedHeader;
-      },
+      }
     };
     var signature = {
       EXPECTED_SCHEME: "v1",
       _computeSignature: (payload, secret) => {
-        return crypto
-          .createHmac("sha256", secret)
-          .update(payload, "utf8")
-          .digest("hex");
+        return crypto.createHmac("sha256", secret).update(payload, "utf8").digest("hex");
       },
       verifyHeader(payload, header, secret, tolerance) {
         payload = Buffer.isBuffer(payload) ? payload.toString("utf8") : payload;
         if (Array.isArray(header)) {
-          throw new Error(
-            "Unexpected: An array was passed as a header, which should not be possible for the stripe-signature header."
-          );
+          throw new Error("Unexpected: An array was passed as a header, which should not be possible for the stripe-signature header.");
         }
         header = Buffer.isBuffer(header) ? header.toString("utf8") : header;
         const details = parseHeader(header, this.EXPECTED_SCHEME);
@@ -3606,8 +3108,8 @@ var require_Webhooks = __commonJS({
             message: "Unable to extract timestamp and signatures from header",
             detail: {
               header,
-              payload,
-            },
+              payload
+            }
           });
         }
         if (!details.signatures.length) {
@@ -3615,25 +3117,19 @@ var require_Webhooks = __commonJS({
             message: "No signatures found with expected scheme",
             detail: {
               header,
-              payload,
-            },
+              payload
+            }
           });
         }
-        const expectedSignature = this._computeSignature(
-          `${details.timestamp}.${payload}`,
-          secret
-        );
-        const signatureFound = !!details.signatures.filter(
-          utils.secureCompare.bind(utils, expectedSignature)
-        ).length;
+        const expectedSignature = this._computeSignature(`${details.timestamp}.${payload}`, secret);
+        const signatureFound = !!details.signatures.filter(utils.secureCompare.bind(utils, expectedSignature)).length;
         if (!signatureFound) {
           throw new StripeSignatureVerificationError({
-            message:
-              "No signatures found matching the expected signature for payload. Are you passing the raw request body you received from Stripe? https://github.com/stripe/stripe-node#webhook-signing",
+            message: "No signatures found matching the expected signature for payload. Are you passing the raw request body you received from Stripe? https://github.com/stripe/stripe-node#webhook-signing",
             detail: {
               header,
-              payload,
-            },
+              payload
+            }
           });
         }
         const timestampAge = Math.floor(Date.now() / 1e3) - details.timestamp;
@@ -3642,37 +3138,34 @@ var require_Webhooks = __commonJS({
             message: "Timestamp outside the tolerance zone",
             detail: {
               header,
-              payload,
-            },
+              payload
+            }
           });
         }
         return true;
-      },
+      }
     };
     function parseHeader(header, scheme) {
       if (typeof header !== "string") {
         return null;
       }
-      return header.split(",").reduce(
-        (accum, item) => {
-          const kv = item.split("=");
-          if (kv[0] === "t") {
-            accum.timestamp = kv[1];
-          }
-          if (kv[0] === scheme) {
-            accum.signatures.push(kv[1]);
-          }
-          return accum;
-        },
-        {
-          timestamp: -1,
-          signatures: [],
+      return header.split(",").reduce((accum, item) => {
+        const kv = item.split("=");
+        if (kv[0] === "t") {
+          accum.timestamp = kv[1];
         }
-      );
+        if (kv[0] === scheme) {
+          accum.signatures.push(kv[1]);
+        }
+        return accum;
+      }, {
+        timestamp: -1,
+        signatures: []
+      });
     }
     Webhook.signature = signature;
     module2.exports = Webhook;
-  },
+  }
 });
 
 // node_modules/stripe/lib/stripe.js
@@ -3693,7 +3186,7 @@ var require_stripe = __commonJS({
       platform: process.platform,
       publisher: "stripe",
       uname: null,
-      typescript: false,
+      typescript: false
     };
     Stripe.USER_AGENT_SERIALIZED = null;
     var MAX_NETWORK_RETRY_DELAY_SEC = 2;
@@ -3709,7 +3202,7 @@ var require_stripe = __commonJS({
       "port",
       "protocol",
       "telemetry",
-      "appInfo",
+      "appInfo"
     ];
     var EventEmitter = require("events").EventEmitter;
     var utils = require_utils2();
@@ -3725,20 +3218,14 @@ var require_stripe = __commonJS({
         value: new EventEmitter(),
         enumerable: false,
         configurable: false,
-        writable: false,
+        writable: false
       });
       this.VERSION = Stripe.PACKAGE_VERSION;
       this.on = this._emitter.on.bind(this._emitter);
       this.once = this._emitter.once.bind(this._emitter);
       this.off = this._emitter.removeListener.bind(this._emitter);
-      if (
-        props.protocol &&
-        props.protocol !== "https" &&
-        (!props.host || /\.stripe\.com$/.test(props.host))
-      ) {
-        throw new Error(
-          "The `https` protocol must be used when sending requests to `*.stripe.com`"
-        );
+      if (props.protocol && props.protocol !== "https" && (!props.host || /\.stripe\.com$/.test(props.host))) {
+        throw new Error("The `https` protocol must be used when sending requests to `*.stripe.com`");
       }
       this._api = {
         auth: null,
@@ -3747,18 +3234,10 @@ var require_stripe = __commonJS({
         protocol: props.protocol || "https",
         basePath: DEFAULT_BASE_PATH,
         version: props.apiVersion || DEFAULT_API_VERSION,
-        timeout: utils.validateInteger(
-          "timeout",
-          props.timeout,
-          DEFAULT_TIMEOUT
-        ),
-        maxNetworkRetries: utils.validateInteger(
-          "maxNetworkRetries",
-          props.maxNetworkRetries,
-          0
-        ),
+        timeout: utils.validateInteger("timeout", props.timeout, DEFAULT_TIMEOUT),
+        maxNetworkRetries: utils.validateInteger("maxNetworkRetries", props.maxNetworkRetries, 0),
         agent: props.httpAgent || null,
-        dev: false,
+        dev: false
       };
       const typescript = props.typescript || false;
       if (typescript !== Stripe.USER_AGENT.typescript) {
@@ -3780,9 +3259,7 @@ var require_stripe = __commonJS({
     Stripe.webhooks = require_Webhooks();
     Stripe.prototype = {
       setHost(host, port, protocol) {
-        emitWarning(
-          "`setHost` is deprecated. Use the `host` config option instead."
-        );
+        emitWarning("`setHost` is deprecated. Use the `host` config option instead.");
         this._setApiField("host", host);
         if (port) {
           this.setPort(port);
@@ -3792,29 +3269,21 @@ var require_stripe = __commonJS({
         }
       },
       setProtocol(protocol) {
-        emitWarning(
-          "`setProtocol` is deprecated. Use the `protocol` config option instead."
-        );
+        emitWarning("`setProtocol` is deprecated. Use the `protocol` config option instead.");
         this._setApiField("protocol", protocol.toLowerCase());
       },
       setPort(port) {
-        emitWarning(
-          "`setPort` is deprecated. Use the `port` config option instead."
-        );
+        emitWarning("`setPort` is deprecated. Use the `port` config option instead.");
         this._setApiField("port", port);
       },
       setApiVersion(version) {
-        emitWarning(
-          "`setApiVersion` is deprecated. Use the `apiVersion` config or request option instead."
-        );
+        emitWarning("`setApiVersion` is deprecated. Use the `apiVersion` config or request option instead.");
         if (version) {
           this._setApiField("version", version);
         }
       },
       setApiKey(key) {
-        emitWarning(
-          "`setApiKey` is deprecated. Use the `apiKey` request option instead."
-        );
+        emitWarning("`setApiKey` is deprecated. Use the `apiKey` request option instead.");
         this._setApiKey(key);
       },
       _setApiKey(key) {
@@ -3823,18 +3292,11 @@ var require_stripe = __commonJS({
         }
       },
       setTimeout(timeout) {
-        emitWarning(
-          "`setTimeout` is deprecated. Use the `timeout` config or request option instead."
-        );
-        this._setApiField(
-          "timeout",
-          timeout == null ? DEFAULT_TIMEOUT : timeout
-        );
+        emitWarning("`setTimeout` is deprecated. Use the `timeout` config or request option instead.");
+        this._setApiField("timeout", timeout == null ? DEFAULT_TIMEOUT : timeout);
       },
       setAppInfo(info) {
-        emitWarning(
-          "`setAppInfo` is deprecated. Use the `appInfo` config option instead."
-        );
+        emitWarning("`setAppInfo` is deprecated. Use the `appInfo` config option instead.");
         this._setAppInfo(info);
       },
       _setAppInfo(info) {
@@ -3856,9 +3318,7 @@ var require_stripe = __commonJS({
         this._appInfo = appInfo;
       },
       setHttpAgent(agent) {
-        emitWarning(
-          "`setHttpAgent` is deprecated. Use the `httpAgent` config option instead."
-        );
+        emitWarning("`setHttpAgent` is deprecated. Use the `httpAgent` config option instead.");
         this._setApiField("agent", agent);
       },
       _setApiField(key, value) {
@@ -3944,9 +3404,7 @@ var require_stripe = __commonJS({
         return formatted;
       },
       setTelemetryEnabled(enableTelemetry) {
-        emitWarning(
-          "`setTelemetryEnabled` is deprecated. Use the `telemetry` config option instead."
-        );
+        emitWarning("`setTelemetryEnabled` is deprecated. Use the `telemetry` config option instead.");
         this._enableTelemetry = enableTelemetry;
       },
       getTelemetryEnabled() {
@@ -3968,32 +3426,26 @@ var require_stripe = __commonJS({
         }
         if (isString) {
           return {
-            apiVersion: config,
+            apiVersion: config
           };
         }
-        const values = Object.keys(config).filter(
-          (value) => !ALLOWED_CONFIG_PROPERTIES.includes(value)
-        );
+        const values = Object.keys(config).filter((value) => !ALLOWED_CONFIG_PROPERTIES.includes(value));
         if (values.length > 0) {
-          throw new Error(
-            `Config object may only contain the following: ${ALLOWED_CONFIG_PROPERTIES.join(
-              ", "
-            )}`
-          );
+          throw new Error(`Config object may only contain the following: ${ALLOWED_CONFIG_PROPERTIES.join(", ")}`);
         }
         return config;
-      },
+      }
     };
     module2.exports = Stripe;
     module2.exports.Stripe = Stripe;
     module2.exports.default = Stripe;
-  },
+  }
 });
 
 // functions/create-payment-intent.ts
 require_main().config();
 var stripe = require_stripe()(process.env.REACT_APP_STRIPE_SECRET_KEY);
-exports.handler = async function (event, context) {
+exports.handler = async function(event, context) {
   if (event.body) {
     const { cart } = JSON.parse(event.body);
     const calculateTotal = (cart2) => {
@@ -4008,26 +3460,26 @@ exports.handler = async function (event, context) {
         amount: calculateTotal(cart) * 100,
         currency: "thb",
         automatic_payment_methods: {
-          enabled: true,
-        },
+          enabled: true
+        }
       });
       return {
         statusCode: 200,
         body: JSON.stringify({
           clientSecret: paymentIntent.client_secret,
-          amount: paymentIntent.amount,
-        }),
+          amount: paymentIntent.amount
+        })
       };
     } catch (error) {
       return {
         statusCode: 500,
-        body: JSON.stringify({ msg: error.message }),
+        body: JSON.stringify({ msg: error.message })
       };
     }
   } else {
     return {
       statusCode: 200,
-      body: "create-payment-intent",
+      body: "create-payment-intent"
     };
   }
 };

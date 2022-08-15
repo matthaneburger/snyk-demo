@@ -9227,13 +9227,6 @@ html-escaper@^2.0.0:
   resolved "https://registry.npmjs.org/html-escaper/-/html-escaper-2.0.2.tgz"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
-html-form-validation@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.npmjs.org/html-form-validation/-/html-form-validation-0.2.2.tgz"
-  integrity sha512-uDH8xNOcIhDjuSqLeh8NPUzvcO3xt0UCBoUCmeIQ2kVAjucCyuy3xza1a4heXbBMzLeY/EQ4EWR1CB3oaaL0cw==
-  dependencies:
-    jquery "^1.9.1"
-
 html-minifier-terser@^5.0.1:
   version "5.1.1"
   resolved "https://registry.npmjs.org/html-minifier-terser/-/html-minifier-terser-5.1.1.tgz"
@@ -10986,11 +10979,6 @@ jest@26.6.0:
     "@jest/core" "^26.6.0"
     import-local "^3.0.2"
     jest-cli "^26.6.0"
-
-jquery@^1.9.1:
-  version "1.12.4"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-1.12.4.tgz"
-  integrity sha512-UEVp7PPK9xXYSk8xqXCJrkXnKZtlgWkd2GsAQbMRFK6S/ePU2JN5G2Zum8hIVjzR3CpdfSqdqAzId/xd4TJHeg==
 
 js-string-escape@^1.0.1:
   version "1.0.1"
