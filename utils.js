@@ -22,6 +22,7 @@ module.exports = {
 
     res.setHeader("Content-Type", "text/plain");
     res.setHeader("Content-Length", body.length);
+    //headers["Content-Length"] = body.length;
     res.end(body);
   },
 };

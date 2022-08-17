@@ -4,7 +4,7 @@ Testing /Users/matt.haneburger/Desktop/snyk-demo/ecommerce_tsx/typescript-e-comm
 Organization:      matthewhaneburger
 Package manager:   yarn
 Target file:       yarn.lock
-Project name:      typescripe-e-commerce
+Project name:      typescript-e-commerce
 Open source:       no
 Project path:      /Users/matt.haneburger/Desktop/snyk-demo/ecommerce_tsx/typescript-e-commerce
 Licenses:          enabled

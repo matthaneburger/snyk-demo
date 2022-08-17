@@ -1187,26 +1187,6 @@ var require_utils2 = __commonJS({
         const type = typeof obj;
         return (type === "function" || type === "object") && !!obj;
       },
-      flattenAndStringify: (data) => {
-        const result = {};
-        const step = (obj, prevKey) => {
-          Object.keys(obj).forEach((key) => {
-            const value = obj[key];
-            const newKey = prevKey ? `${prevKey}[${key}]` : key;
-            if (utils.isObject(value)) {
-              if (!Buffer.isBuffer(value) && !value.hasOwnProperty("data")) {
-                return step(value, newKey);
-              } else {
-                result[newKey] = value;
-              }
-            } else {
-              result[newKey] = String(value);
-            }
-          });
-        };
-        step(data);
-        return result;
-      },
       uuid4: () => {
         return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
           const r = (Math.random() * 16) | 0;

