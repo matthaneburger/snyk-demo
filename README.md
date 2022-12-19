@@ -2,7 +2,7 @@
 
 ## What is this project about?
 
-- This is an e-commerce app that will demo several open source elements for the Snyk Solutions Engineering Interview Panel Presentation. The skeleton was pulled from the GitHubs of both Udemy / 1codingguy. This project was built intentionally vulnerable to demonstrate how to use the Snyk platform to secure those vulnerabilities.
+- This is an e-commerce app emulating my favorite sports organization online store that will demo several open source elements for the Snyk Solutions Engineering Interview Panel Presentation. The skeleton was pulled from the GitHubs of both Udemy / 1codingguy and heavily modified by myself to showcase how the Snyk Platform can help facilitate security within multiple integration points within the SDLC. 
 
 ## What technologies were used?
 
